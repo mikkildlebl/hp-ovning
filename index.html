@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HP Övning</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3248;
+    --text: #e8eaf0;
+    --muted: #8b8fa8;
+    --accent: #5b6ef5;
+    --accent-hover: #7080ff;
+    --correct: #22c55e;
+    --wrong: #ef4444;
+    --warn: #f59e0b;
+    --radius: 12px;
+    --font: 'Segoe UI', system-ui, sans-serif;
+  }
+  [data-theme="classy"] {
+    --bg: #f0f2f8;
+    --surface: #ffffff;
+    --surface2: #e8eaf0;
+    --border: #d0d4e8;
+    --text: #1a1d2e;
+    --muted: #6b6f88;
+    --accent: #5b6ef5;
+    --accent-hover: #7080ff;
+    --correct: #16a34a;
+    --wrong: #dc2626;
+    --warn: #d97706;
+    --radius: 12px;
+    --font: 'Segoe UI', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; transition: background 0.2s, color 0.2s; }
+
+  /* ── Theme toggle ── */
+  #theme-toggle {
+    position: fixed; top: 16px; right: 16px; z-index: 999;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); border-radius: var(--radius); padding: 6px 14px;
+    font-size: 0.8rem; cursor: pointer; font-family: var(--font);
+    letter-spacing: 0.05em;
+  }
+  #theme-toggle:hover { background: var(--accent); color: var(--bg); }
+
+  /* ── Layout ── */
+  #app { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { text-align: center; padding: 32px 0 40px; }
+  header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; }
+  header h1 span { color: var(--accent); }
+  header p { color: var(--muted); margin-top: 6px; font-size: 0.95rem; }
+
+  /* ── Cards ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+  .card + .card { margin-top: 16px; }
+
+  /* ── Mode selector ── */
+  #mode-screen h2 { font-size: 1.1rem; color: var(--muted); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .section-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; font-weight: 600; }
+  .part-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 24px; }
+  .part-btn {
+    background: var(--surface2); border: 2px solid var(--border); border-radius: 10px;
+    padding: 18px 12px; cursor: pointer; text-align: center; transition: all 0.15s;
+    color: var(--text);
+  }
+  .part-btn:hover { border-color: var(--accent); background: var(--surface2); }
+  .part-btn.selected { border-color: var(--accent); background: var(--surface2); }
+  .part-btn .part-name { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .part-btn .part-full { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+  .part-btn .part-count { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+
+  .full-test-btn {
+    width: 100%; background: var(--accent); border: none; border-radius: 10px;
+    padding: 18px; cursor: pointer; font-size: 1rem; font-weight: 700;
+    color: #fff; transition: background 0.15s; margin-bottom: 24px;
+  }
+  .full-test-btn:hover { background: var(--accent-hover); }
+  .full-test-btn .sub { font-size: 0.8rem; font-weight: 400; opacity: 0.85; display: block; margin-top: 4px; }
+
+  .qty-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .qty-row label { color: var(--muted); font-size: 0.9rem; }
+  .qty-input { background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 8px 12px; width: 80px; font-size: 1rem; text-align: center; }
+  .qty-input:focus { outline: none; border-color: var(--accent); }
+
+  .start-btn {
+    width: 100%; background: var(--accent); border: none; border-radius: 10px;
+    padding: 16px; cursor: pointer; font-size: 1rem; font-weight: 700; color: #fff;
+    transition: background 0.15s;
+  }
+  .start-btn:hover { background: var(--accent-hover); }
+  .start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── Quiz screen ── */
+  #quiz-screen { display: none; }
+  .progress-bar-wrap { background: var(--surface2); border-radius: 99px; height: 6px; margin-bottom: 6px; }
+  .progress-bar-fill { background: var(--accent); height: 6px; border-radius: 99px; transition: width 0.3s; }
+  .progress-meta { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted); margin-bottom: 20px; }
+
+  .type-badge {
+    display: inline-block; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.08em; color: var(--accent); margin-bottom: 14px;
+  }
+
+  .passage-box {
+    background: var(--surface2); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 16px 18px; margin-bottom: 20px;
+    font-size: 0.88rem; line-height: 1.7; color: #c8cae0;
+    white-space: pre-wrap;
+  }
+  .diagram-box { margin-bottom: 20px; text-align: center; }
+  .diagram-box img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); }
+  .media-missing { background: var(--surface2); border: 1px dashed var(--border); border-radius: 8px; padding: 14px; font-size: 0.83rem; color: var(--muted); margin-bottom: 20px; }
+  .kva-preamble { font-size: 0.95rem; color: var(--muted); margin-bottom: 14px; line-height: 1.6; }
+  .kva-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
+  .kva-table td { padding: 10px 14px; vertical-align: top; }
+  .kva-table td:first-child { width: 110px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); white-space: nowrap; }
+  .kva-table td:last-child { font-size: 1rem; color: var(--text); }
+  .kva-table tr:first-child td { border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  .kva-table tr:last-child td { padding-top: 10px; }
+  .kva-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .kva-opts .opt-btn { text-align: center; padding: 10px 8px; font-size: 0.88rem; }
+
+  .nog-statements { margin-bottom: 16px; }
+  .nog-statements p { background: var(--surface2); border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; font-size: 0.9rem; line-height: 1.6; }
+
+  .question-text { font-size: 1.05rem; line-height: 1.65; margin-bottom: 22px; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt-btn {
+    background: var(--surface2); border: 2px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; cursor: pointer; text-align: left; font-size: 0.95rem;
+    color: var(--text); transition: all 0.12s; line-height: 1.5;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--surface2); }
+  .opt-btn.correct { border-color: var(--correct); background: var(--surface2); color: var(--correct); }
+  .opt-btn.wrong   { border-color: var(--wrong);   background: var(--surface2); color: var(--wrong); }
+  .opt-btn:disabled { cursor: default; }
+
+  .feedback-row { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; flex-wrap: wrap; gap: 12px; }
+  .feedback-text { font-size: 1rem; font-weight: 600; }
+  .feedback-text.correct { color: var(--correct); }
+  .feedback-text.wrong   { color: var(--wrong); }
+
+  .next-btn {
+    background: var(--accent); border: none; border-radius: 8px; padding: 12px 28px;
+    color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.15s;
+  }
+  .next-btn:hover { background: var(--accent-hover); }
+
+  /* ── Grouped questions ── */
+  .question-item { margin-bottom: 24px; }
+  .question-item + .question-item { border-top: 1px solid var(--border); padding-top: 24px; }
+  .question-num { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 600; }
+  .question-text { font-size: 1.05rem; line-height: 1.65; margin-bottom: 16px; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .inline-feedback { font-size: 0.9rem; font-weight: 600; margin-top: 10px; }
+  .inline-feedback.correct { color: var(--correct); }
+  .inline-feedback.wrong   { color: var(--wrong); }
+
+  /* ── Results screen ── */
+  #results-screen { display: none; text-align: center; }
+  .score-circle {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 6px solid var(--accent); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; margin: 0 auto 28px;
+  }
+  .score-pct { font-size: 2.4rem; font-weight: 800; }
+  .score-label { font-size: 0.8rem; color: var(--muted); }
+  .score-detail { color: var(--muted); margin-bottom: 28px; }
+  .breakdown { text-align: left; }
+  .breakdown h3 { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .breakdown-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+  .breakdown-row:last-child { border-bottom: none; }
+  .bd-type { font-weight: 700; color: var(--accent); width: 44px; }
+  .bd-bar-wrap { flex: 1; background: var(--surface2); border-radius: 99px; height: 8px; }
+  .bd-bar { height: 8px; border-radius: 99px; background: var(--accent); }
+  .bd-score { font-size: 0.85rem; color: var(--muted); width: 60px; text-align: right; }
+
+  .result-actions { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
+  .result-actions button {
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 12px 24px; cursor: pointer; font-size: 0.95rem; font-weight: 600;
+    transition: all 0.15s;
+  }
+  .result-actions button:hover { border-color: var(--accent); }
+  .result-actions button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .result-actions button.primary:hover { background: var(--accent-hover); }
+
+  /* ── Prefix/Suffix screen ── */
+  #prefix-screen { display: none; }
+  .nav-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+  .nav-tab { padding: 10px 20px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.15s; }
+  .nav-tab.active, .nav-tab:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .flashcard-wrap { perspective: 1000px; margin: 0 auto 24px; cursor: pointer; }
+  .flashcard { width: 100%; min-height: 220px; position: relative; transform-style: preserve-3d; transition: transform 0.45s; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-face { position: absolute; inset: 0; backface-visibility: hidden; background: var(--surface2); border: 2px solid var(--border); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px; text-align: center; }
+  .fc-face.back { transform: rotateY(180deg); }
+  .fc-hint { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .fc-word { font-size: 2.4rem; font-weight: 800; color: var(--accent); }
+  .fc-type { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+  .fc-meaning { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .fc-examples { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+  .fc-tap { font-size: 0.78rem; color: var(--muted); margin-top: 16px; }
+
+  .fc-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .fc-btn { padding: 14px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+  .fc-btn.know    { background: var(--correct); color: #fff; }
+  .fc-btn.unknown { background: var(--surface2); border: 2px solid var(--border); color: var(--text); }
+  .fc-btn:hover { opacity: 0.85; }
+
+  .prefix-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: 0.85rem; color: var(--muted); }
+  .prefix-progress-bar { flex: 1; background: var(--surface2); border-radius: 99px; height: 8px; }
+  .prefix-progress-fill { background: var(--correct); height: 8px; border-radius: 99px; transition: width 0.4s; }
+  .prefix-filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-chip { padding: 6px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: all 0.15s; }
+  .filter-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── Loading ── */
+  #loading { text-align: center; padding: 80px 0; color: var(--muted); }
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Auth screen ── */
+  #auth-screen { display: none; max-width: 400px; margin: 0 auto; }
+  .auth-tabs { display: flex; gap: 0; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .auth-tab { flex: 1; padding: 12px; background: var(--surface2); border: none; color: var(--muted); cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; }
+  .auth-tab.active { background: var(--accent); color: #fff; }
+  .auth-field { margin-bottom: 16px; }
+  .auth-field label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+  .auth-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 12px 14px; font-size: 1rem; }
+  .auth-input:focus { outline: none; border-color: var(--accent); }
+  .auth-btn { width: 100%; background: var(--accent); border: none; border-radius: 8px; padding: 14px; color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 4px; transition: background 0.15s; }
+  .auth-btn:hover { background: var(--accent-hover); }
+  .auth-error { color: var(--wrong); font-size: 0.85rem; margin-top: 10px; min-height: 20px; }
+
+  /* ── User bar ── */
+  .user-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; font-size: 0.85rem; color: var(--muted); }
+  .user-bar strong { color: var(--text); }
+  .user-bar button { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 6px; padding: 4px 12px; cursor: pointer; font-size: 0.82rem; }
+  .user-bar button:hover { border-color: var(--accent); color: var(--text); }
+  .seen-info { font-size: 0.78rem; color: var(--muted); margin-bottom: 16px; }
+  .reset-link { color: var(--accent); cursor: pointer; text-decoration: underline; font-size: 0.78rem; margin-left: 8px; }
+</style>
+</head>
+<body>
+<button id="theme-toggle" onclick="toggleTheme()">◐ Klassisk</button>
+<div id="app">
+  <header>
+    <h1>HP <span>Övning</span></h1>
+    <p>Träna på Högskoleprovets delprover</p>
+  </header>
+
+  <div id="loading"><div class="spinner"></div>Laddar frågor…</div>
+
+  <!-- AUTH SCREEN -->
+  <div id="auth-screen">
+    <div class="card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Logga in</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Skapa konto</button>
+      </div>
+      <div class="auth-field"><label>Användarnamn</label><input class="auth-input" id="authUser" autocomplete="username"></div>
+      <div class="auth-field"><label>Lösenord</label><input class="auth-input" id="authPass" type="password" autocomplete="current-password"></div>
+      <button class="auth-btn" id="authBtn" onclick="submitAuth()">Logga in</button>
+      <div class="auth-error" id="authError"></div>
+    </div>
+  </div>
+
+  <!-- MODE SELECTION -->
+  <div id="mode-screen" style="display:none">
+    <div class="user-bar">
+      <span>Inloggad som <strong id="userLabel"></strong></span>
+      <button onclick="logout()">Logga ut</button>
+    </div>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:24px">
+        <div class="full-test-btn" id="fullTestBtn" style="cursor:pointer;margin-bottom:0">
+          Fullständigt provpass
+          <span class="sub">10 ORD · 10 MEK · 20 LAS · 12 XYZ · 10 KVA · 6 NOG · 12 DTK = 80 frågor</span>
+        </div>
+        <button onclick="showPrefixScreen()" style="background:var(--surface2);border:2px solid var(--border);border-radius:10px;padding:18px 16px;cursor:pointer;color:var(--text);font-size:0.85rem;font-weight:700;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+          🔤 Prefix &<br>Suffix
+        </button>
+      </div>
+
+      <p class="section-label">Eller välj enskilda delprover</p>
+      <div class="part-grid" id="partGrid"></div>
+
+      <div class="qty-row" id="qtyRow" style="display:none">
+        <label>Antal frågor:</label>
+        <input class="qty-input" id="qtyInput" type="number" min="1" value="10">
+      </div>
+
+      <div class="seen-info" id="seenInfo"></div>
+      <button class="start-btn" id="startBtn" disabled>Välj ett delprov ovan</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-screen">
+    <div class="card">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
+      <div class="progress-meta">
+        <span id="progressText"></span>
+        <span id="scoreText"></span>
+      </div>
+      <div class="type-badge" id="typeBadge"></div>
+      <!-- shared media (passage or diagram) -->
+      <div id="passageArea"></div>
+      <!-- question(s) rendered here -->
+      <div id="questionsArea"></div>
+      <!-- next button shown after all questions in group answered -->
+      <div class="feedback-row" id="feedbackRow" style="display:none">
+        <span class="feedback-text" id="feedbackText"></span>
+        <button class="next-btn" id="nextBtn">Nästa →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-screen">
+    <div class="card">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-pct" id="scorePct"></div>
+        <div class="score-label" id="scoreCircleLabel">rätt</div>
+      </div>
+      <p class="score-detail" id="scoreDetail"></p>
+      <div class="breakdown" id="breakdown"></div>
+      <div class="result-actions">
+        <button onclick="showMode()">← Tillbaka</button>
+        <button class="primary" onclick="restartSame()">Kör igen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREFIX/SUFFIX SCREEN -->
+  <div id="prefix-screen">
+    <div class="user-bar">
+      <span>Inloggad som <strong id="prefixUserLabel"></strong></span>
+      <button onclick="logout()">Logga ut</button>
+    </div>
+    <div class="card">
+      <div class="nav-tabs">
+        <button class="nav-tab" onclick="showMode()">← Tillbaka</button>
+        <button class="nav-tab active" id="pfTabAll"    onclick="setPfFilter('all')">Alla</button>
+        <button class="nav-tab"        id="pfTabPrefix" onclick="setPfFilter('prefix')">Prefix</button>
+        <button class="nav-tab"        id="pfTabSuffix" onclick="setPfFilter('suffix')">Suffix</button>
+        <button class="nav-tab"        id="pfTabUnknown" onclick="setPfFilter('unknown')">Kan inte</button>
+      </div>
+
+      <div class="prefix-progress">
+        <div class="prefix-progress-bar"><div class="prefix-progress-fill" id="pfProgressFill"></div></div>
+        <span id="pfProgressText"></span>
+      </div>
+
+      <div class="flashcard-wrap" onclick="flipCard()">
+        <div class="flashcard" id="flashcard">
+          <div class="fc-face front">
+            <div class="fc-hint">Vad betyder?</div>
+            <div class="fc-word" id="fcWord"></div>
+            <div class="fc-type" id="fcType"></div>
+            <div class="fc-tap">Tryck för att vända</div>
+          </div>
+          <div class="fc-face back">
+            <div class="fc-meaning" id="fcMeaning"></div>
+            <div class="fc-examples" id="fcExamples"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-actions" id="fcActions" style="display:none">
+        <button class="fc-btn unknown" onclick="markCard(false)">✗ Kan inte</button>
+        <button class="fc-btn know"    onclick="markCard(true)">✓ Kan!</button>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:0.82rem;color:var(--muted)" id="pfCardCounter"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Theme ──────────────────────────────────────────────────────────────────
+(function() {
+  const saved = localStorage.getItem('hp-theme') || 'dark';
+  if (saved === 'classy') document.documentElement.setAttribute('data-theme', 'classy');
+  updateThemeBtn(saved);
+})();
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = current === 'classy' ? 'dark' : 'classy';
+  if (next === 'dark') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', 'classy');
+  localStorage.setItem('hp-theme', next);
+  updateThemeBtn(next);
+}
+
+function updateThemeBtn(theme) {
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = theme === 'classy' ? '◐ Mörk' : '◐ Klassisk';
+}
+
+// ── State ──────────────────────────────────────────────────────────────────
+const PART_INFO = {
+  ORD: { full: 'Ordförståelse',           color: '#5b6ef5', testCount: 10 },
+  MEK: { full: 'Meningskomplettering',    color: '#8b5cf6', testCount: 10 },
+  LAS: { full: 'Läsförståelse',           color: '#06b6d4', testCount: 20 },
+  XYZ: { full: 'Matematisk problemlösning', color: '#10b981', testCount: 12 },
+  KVA: { full: 'Kvantitativa jämförelser', color: '#f59e0b', testCount: 10 },
+  NOG: { full: 'Noggrannhet',             color: '#ef4444', testCount: 6  },
+  DTK: { full: 'Diagram, tabeller, kartor', color: '#ec4899', testCount: 12 },
+};
+
+let allQuestions = [];
+let sessionQueue  = [];   // flat list (used for stats/progress)
+let sessionGroups = [];   // [{questions:[...], mediaType, mediaKey}]
+let groupIdx = 0;
+let correct = 0;
+let answered = 0;
+let selectedPart = null;
+let isFullTest = false;
+let lastConfig = null;
+let questionResults = []; // {type, section, isRight} per answered question
+let seenIds = new Set();   // question IDs already done by this user
+let authMode = 'login';
+
+// Passage cache: passage_file -> text
+const passageCache = {};
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+
+function switchTab(mode) {
+  authMode = mode;
+  document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+  document.getElementById('tabRegister').classList.toggle('active', mode === 'register');
+  document.getElementById('authBtn').textContent = mode === 'login' ? 'Logga in' : 'Skapa konto';
+  document.getElementById('authError').textContent = '';
+}
+
+async function submitAuth() {
+  const username = document.getElementById('authUser').value.trim();
+  const password = document.getElementById('authPass').value;
+  const errEl = document.getElementById('authError');
+  errEl.textContent = '';
+  if (!username || !password) { errEl.textContent = 'Fyll i användarnamn och lösenord.'; return; }
+  const url = authMode === 'login' ? '/api/login' : '/api/register';
+  const r = await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({username, password}) });
+  const data = await r.json();
+  if (!r.ok) { errEl.textContent = data.error || 'Fel'; return; }
+  await afterLogin(data.username);
+}
+
+async function logout() {
+  await fetch('/api/logout', { method: 'POST' });
+  seenIds = new Set();
+  document.getElementById('mode-screen').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'block';
+  document.getElementById('authUser').value = '';
+  document.getElementById('authPass').value = '';
+  document.getElementById('authError').textContent = '';
+}
+
+async function afterLogin(username) {
+  document.getElementById('userLabel').textContent = username;
+  // Load seen IDs
+  const r = await fetch('/api/seen');
+  if (r.ok) {
+    const data = await r.json();
+    seenIds = new Set(data.seen);
+  }
+  document.getElementById('auth-screen').style.display = 'none';
+  buildModeScreen();
+  showMode();
+}
+
+async function markSeen(ids) {
+  seenIds = new Set([...seenIds, ...ids]);
+  await fetch('/api/seen', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ids}) });
+}
+
+async function resetSeen() {
+  if (!confirm('Återställ alla framsteg? Alla frågor markeras som osedda.')) return;
+  await fetch('/api/reset', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({}) });
+  seenIds = new Set();
+  updateSeenInfo();
+}
+
+function updateSeenInfo() {
+  if (!selectedPart && !isFullTest) { document.getElementById('seenInfo').innerHTML = ''; return; }
+  const types = isFullTest ? Object.keys(PART_INFO) : [selectedPart];
+  const total = types.reduce((s,t) => s + allQuestions.filter(q=>q.question_type===t).length, 0);
+  const seen  = types.reduce((s,t) => s + allQuestions.filter(q=>q.question_type===t && seenIds.has(q.id)).length, 0);
+  const unseen = total - seen;
+  document.getElementById('seenInfo').innerHTML =
+    `${unseen} av ${total} frågor osedda  <span class="reset-link" onclick="resetSeen()">Återställ</span>`;
+}
+
+async function init() {
+  try {
+    const r = await fetch('hp_questions.json');
+    const data = await r.json();
+    allQuestions = data.questions;
+    document.getElementById('loading').style.display = 'none';
+    // Check if already logged in
+    const me = await fetch('/api/me');
+    const meData = await me.json();
+    if (meData.loggedIn) {
+      await afterLogin(meData.username);
+    } else {
+      document.getElementById('auth-screen').style.display = 'block';
+    }
+    // Enter key on auth form
+    ['authUser','authPass'].forEach(id =>
+      document.getElementById(id).addEventListener('keydown', e => { if (e.key==='Enter') submitAuth(); })
+    );
+  } catch(e) {
+    document.getElementById('loading').innerHTML = '<p style="color:#ef4444">Kunde inte ladda hp_questions.json.<br>Starta app.py i samma mapp.</p>';
+  }
+}
+
+function buildModeScreen() {
+  const grid = document.getElementById('partGrid');
+  grid.innerHTML = '';
+  const counts = {};
+  for (const q of allQuestions) counts[q.question_type] = (counts[q.question_type]||0)+1;
+
+  for (const [type, info] of Object.entries(PART_INFO)) {
+    const btn = document.createElement('div');
+    btn.className = 'part-btn';
+    btn.dataset.type = type;
+    btn.innerHTML = `<div class="part-name" style="color:${info.color}">${type}</div><div class="part-full">${info.full}</div><div class="part-count">${counts[type]||0} frågor</div>`;
+    btn.addEventListener('click', () => selectPart(type, btn));
+    grid.appendChild(btn);
+  }
+
+  document.getElementById('fullTestBtn').addEventListener('click', startFullTest);
+  document.getElementById('startBtn').addEventListener('click', startSession);
+}
+
+function selectPart(type, btn) {
+  document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedPart = type;
+  isFullTest = false;
+  const unseen = allQuestions.filter(q => q.question_type === type && !seenIds.has(q.id));
+  const max = allQuestions.filter(q => q.question_type === type).length;
+  const qty = document.getElementById('qtyInput');
+  qty.max = max;
+  qty.value = Math.min(parseInt(qty.value)||10, unseen.length || max);
+  document.getElementById('qtyRow').style.display = 'flex';
+  const startBtn = document.getElementById('startBtn');
+  startBtn.disabled = false;
+  startBtn.textContent = `Starta ${type} övning`;
+  updateSeenInfo();
+}
+
+function startFullTest() {
+  isFullTest = true;
+  selectedPart = null;
+  document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('qtyRow').style.display = 'none';
+  buildQueue();
+  beginQuiz();
+}
+
+function startSession() {
+  buildQueue();
+  beginQuiz();
+}
+
+// Pick unseen questions first; fall back to seen ones if not enough.
+function pickQuestions(type, n) {
+  const unseen = shuffle(allQuestions.filter(q => q.question_type === type && !seenIds.has(q.id)));
+  if (unseen.length >= n) return unseen.slice(0, n);
+  const seen = shuffle(allQuestions.filter(q => q.question_type === type && seenIds.has(q.id)));
+  return [...unseen, ...seen].slice(0, n);
+}
+
+// Group questions by shared media key (passage_file for LAS, diagram_image for DTK)
+function groupQuestions(questions) {
+  const groups = [];
+  const mediaGroups = {}; // key -> group index
+
+  for (const q of questions) {
+    const mediaKey = q.passage_file || q.diagram_image || null;
+    const mediaType = q.passage_file ? 'passage' : q.diagram_image ? 'diagram' : null;
+
+    if (mediaKey && mediaType) {
+      if (mediaGroups[mediaKey] !== undefined) {
+        groups[mediaGroups[mediaKey]].questions.push(q);
+      } else {
+        mediaGroups[mediaKey] = groups.length;
+        groups.push({ questions: [q], mediaType, mediaKey });
+      }
+    } else {
+      groups.push({ questions: [q], mediaType: null, mediaKey: null });
+    }
+  }
+  return groups;
+}
+
+function buildQueue() {
+  sessionQueue = [];
+  correct = 0; answered = 0; questionResults = [];
+
+  if (isFullTest) {
+    for (const [type, info] of Object.entries(PART_INFO)) {
+      sessionQueue.push(...pickQuestions(type, info.testCount));
+    }
+    const verbal = sessionQueue.filter(q => q.section_type === 'verbal');
+    const kvant  = sessionQueue.filter(q => q.section_type === 'kvant');
+    sessionQueue = [...verbal, ...kvant]; // keep section order; groups will shuffle internally
+    lastConfig = { isFullTest: true };
+  } else {
+    const n = Math.min(parseInt(document.getElementById('qtyInput').value)||10,
+                       allQuestions.filter(q=>q.question_type===selectedPart).length);
+    sessionQueue = pickQuestions(selectedPart, n);
+    lastConfig = { isFullTest: false, part: selectedPart, n };
+  }
+
+  sessionGroups = groupQuestions(sessionQueue);
+  groupIdx = 0;
+}
+
+function beginQuiz() {
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('mode-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  document.getElementById('results-screen').style.display = 'none';
+  showGroup();
+}
+
+// Count how many questions precede groupIdx (for progress)
+function questionsBeforeGroup(gi) {
+  let n = 0;
+  for (let i = 0; i < gi; i++) n += sessionGroups[i].questions.length;
+  return n;
+}
+
+// Parse "Kvantitet I: X Kvantitet II: Y" out of KVA question text
+function parseKva(text) {
+  const m = text.match(/^(.*?)Kvantitet\s+I[:\s]+(.+?)\s+Kvantitet\s+II[:\s]+(.+)$/is);
+  if (m) return { preamble: m[1].trim(), q1: m[2].trim(), q2: m[3].trim() };
+  // fallback: split on "Kvantitet II"
+  const i2 = text.search(/Kvantitet\s+II/i);
+  if (i2 >= 0) {
+    const before = text.slice(0, i2);
+    const after  = text.slice(i2).replace(/Kvantitet\s+II[:\s]+/i, '').trim();
+    const i1 = before.search(/Kvantitet\s+I[:\s]+/i);
+    if (i1 >= 0) {
+      return {
+        preamble: before.slice(0, i1).trim(),
+        q1: before.slice(i1).replace(/Kvantitet\s+I[:\s]+/i, '').trim(),
+        q2: after
+      };
+    }
+  }
+  return null;
+}
+
+function cleanKvaExpr(s) {
+  return s
+    .replace(/\s*#\s*/g, ' ≤ ')           // # = ≤
+    .replace(/\s*!\s*/g, ' ≠ ')            // ! = ≠
+    // $ after variable/expr and before 0 = ≥ 0
+    .replace(/(\w)\s+0\s+\$/g, '$1 ≥ 0')  // "x 0 $" → "x ≥ 0"
+    .replace(/(\w)\s*\$\s*0\b/g, '$1 ≥ 0') // "x$0" or "x $ 0" → "x ≥ 0"
+    .replace(/\s*\$\s*/g, '/')             // remaining $ = fraction /
+    .replace(/\s{2,}/g, ' ')
+    .replace(/^[\s/]+|[\s/]+$/g, '')
+    .trim();
+}
+
+function renderKva(q, container) {
+  const parsed = parseKva(q.question_text);
+  if (!parsed) {
+    const el = document.createElement('div');
+    el.className = 'question-text';
+    el.textContent = q.question_text;
+    container.appendChild(el);
+    return;
+  }
+  if (parsed.preamble) {
+    const pre = document.createElement('div');
+    pre.className = 'kva-preamble';
+    pre.textContent = cleanKvaExpr(parsed.preamble);
+    container.appendChild(pre);
+  }
+  const q1 = cleanKvaExpr(parsed.q1);
+  const q2 = cleanKvaExpr(parsed.q2);
+  const tbl = document.createElement('table');
+  tbl.className = 'kva-table';
+  tbl.innerHTML = `
+    <tr><td>Kvantitet I</td><td>${escHtml(q1)}</td></tr>
+    <tr><td>Kvantitet II</td><td>${escHtml(q2)}</td></tr>`;
+  container.appendChild(tbl);
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function showGroup() {
+  const group = sessionGroups[groupIdx];
+  const totalQ = sessionQueue.length;
+  const doneQ  = questionsBeforeGroup(groupIdx);
+  const pct    = totalQ ? (doneQ / totalQ) * 100 : 0;
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent =
+    `Fråga ${doneQ + 1}${group.questions.length > 1 ? '–' + (doneQ + group.questions.length) : ''} av ${totalQ}`;
+  document.getElementById('scoreText').textContent = `✓ ${correct}  ✗ ${answered - correct}`;
+  document.getElementById('typeBadge').textContent =
+    group.questions[0].question_type + ' – ' + PART_INFO[group.questions[0].question_type].full;
+  document.getElementById('feedbackRow').style.display = 'none';
+
+  // ── Shared media (passage / diagram) ──
+  const passageArea = document.getElementById('passageArea');
+  passageArea.innerHTML = '';
+
+  if (group.mediaType === 'passage') {
+    const txt = await loadPassage(group.mediaKey);
+    if (txt) {
+      const box = document.createElement('div');
+      box.className = 'passage-box';
+      box.textContent = txt;
+      passageArea.appendChild(box);
+    } else {
+      passageArea.innerHTML = `<div class="media-missing">📄 Läspassage ej tillgänglig (${group.mediaKey})</div>`;
+    }
+  } else if (group.mediaType === 'diagram') {
+    const box = document.createElement('div');
+    box.className = 'diagram-box';
+    const img = document.createElement('img');
+    img.src = 'images/' + group.mediaKey;
+    img.alt = 'Diagram';
+    img.onerror = () => {
+      passageArea.innerHTML = `<div class="media-missing">🖼 Diagram ej tillgängligt (${group.mediaKey})</div>`;
+    };
+    box.appendChild(img);
+    passageArea.appendChild(box);
+  }
+
+  // ── Render each question ──
+  const qArea = document.getElementById('questionsArea');
+  qArea.innerHTML = '';
+  const groupAnsweredSet = new Set(); // indices of answered questions in this group
+
+  function checkAllAnswered() {
+    if (groupAnsweredSet.size < group.questions.length) return;
+    // All done — show Next
+    const fb = document.getElementById('feedbackText');
+    const allRight = [...groupAnsweredSet].every(i => group.questions[i]._lastRight);
+    fb.textContent = group.questions.length > 1
+      ? `${[...groupAnsweredSet].filter(i => group.questions[i]._lastRight).length} av ${group.questions.length} rätt`
+      : (allRight ? '✓ Rätt!' : `✗ Fel`);
+    fb.className = 'feedback-text ' + (allRight ? 'correct' : 'wrong');
+    document.getElementById('feedbackRow').style.display = 'flex';
+    document.getElementById('nextBtn').onclick = () => advance();
+  }
+
+  group.questions.forEach((q, qi) => {
+    const item = document.createElement('div');
+    item.className = 'question-item';
+
+    if (group.questions.length > 1) {
+      const num = document.createElement('div');
+      num.className = 'question-num';
+      num.textContent = `Fråga ${qi + 1}`;
+      item.appendChild(num);
+    }
+
+    // NOG statements
+    if (q.question_type === 'NOG' && q.nog_statements?.length) {
+      const s = document.createElement('div');
+      s.className = 'nog-statements';
+      for (const st of q.nog_statements) {
+        const p = document.createElement('p'); p.textContent = st; s.appendChild(p);
+      }
+      item.appendChild(s);
+    }
+
+    if (q.question_type === 'KVA') {
+      renderKva(q, item);
+    } else {
+      const qtEl = document.createElement('div');
+      qtEl.className = 'question-text';
+      qtEl.textContent = q.question_text;
+      item.appendChild(qtEl);
+    }
+
+    const optArea = document.createElement('div');
+    optArea.className = 'options';
+
+    const fbEl = document.createElement('div');
+    fbEl.className = 'inline-feedback';
+
+    if (!q.options || q.options.length === 0) {
+      // Self-assess (no stored options)
+      const note = document.createElement('div');
+      note.className = 'media-missing';
+      note.textContent = 'Svarsalternativen finns på diagram-/figurbladet.';
+      optArea.appendChild(note);
+
+      const revealWrap = document.createElement('div');
+      revealWrap.style.cssText = 'margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;';
+
+      const showBtn = document.createElement('button');
+      showBtn.className = 'opt-btn'; showBtn.style.flex = '1';
+      showBtn.textContent = `Visa rätt svar (${q.correct_answer})`;
+      showBtn.addEventListener('click', () => { showBtn.style.display='none'; selfRow.style.display='flex'; });
+
+      const selfRow = document.createElement('div');
+      selfRow.style.cssText = 'display:none;gap:10px;flex:1;';
+
+      const yesBtn = document.createElement('button');
+      yesBtn.className = 'opt-btn correct'; yesBtn.style.flex='1';
+      yesBtn.textContent = `✓ Rätt svar: ${q.correct_answer} — Jag hade rätt`;
+      yesBtn.addEventListener('click', () => {
+        yesBtn.disabled = true; noBtn.disabled = true;
+        selfRow.style.display = 'none';
+        recordAnswer(q, qi, true, groupAnsweredSet, checkAllAnswered);
+        fbEl.textContent = '✓ Markerat som rätt'; fbEl.className = 'inline-feedback correct';
+      });
+
+      const noBtn = document.createElement('button');
+      noBtn.className = 'opt-btn wrong'; noBtn.style.flex='1';
+      noBtn.textContent = `✗ Jag hade fel`;
+      noBtn.addEventListener('click', () => {
+        yesBtn.disabled = true; noBtn.disabled = true;
+        selfRow.style.display = 'none';
+        recordAnswer(q, qi, false, groupAnsweredSet, checkAllAnswered);
+        fbEl.textContent = '✗ Markerat som fel'; fbEl.className = 'inline-feedback wrong';
+      });
+
+      selfRow.appendChild(yesBtn); selfRow.appendChild(noBtn);
+      revealWrap.appendChild(showBtn); revealWrap.appendChild(selfRow);
+      optArea.appendChild(revealWrap);
+    } else {
+      const seenLetters = new Set();
+      for (const opt of q.options) {
+        const letter = opt.trim()[0];
+        if (seenLetters.has(letter)) continue; // skip duplicate option letters
+        seenLetters.add(letter);
+        const btn = document.createElement('button');
+        btn.className = 'opt-btn';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => {
+          if (groupAnsweredSet.has(qi)) return;
+          // Disable all buttons for this question
+          optArea.querySelectorAll('.opt-btn').forEach(b => {
+            b.disabled = true;
+            const l = b.textContent.trim()[0];
+            if (l === q.correct_answer) b.classList.add('correct');
+            else if (b === btn) b.classList.add('wrong');
+          });
+          const isRight = letter === q.correct_answer;
+          recordAnswer(q, qi, isRight, groupAnsweredSet, checkAllAnswered);
+          if (group.questions.length > 1) {
+            fbEl.textContent = isRight ? '✓ Rätt!' : `✗ Fel – rätt svar: ${q.correct_answer}`;
+            fbEl.className = 'inline-feedback ' + (isRight ? 'correct' : 'wrong');
+          }
+        });
+        optArea.appendChild(btn);
+      }
+    }
+
+    item.appendChild(optArea);
+    item.appendChild(fbEl);
+    qArea.appendChild(item);
+  });
+}
+
+function recordAnswer(q, qi, isRight, groupAnsweredSet, checkAllAnswered) {
+  q._lastRight = isRight;
+  groupAnsweredSet.add(qi);
+  answered++;
+  if (isRight) correct++;
+  questionResults.push({ type: q.question_type, section: q.section_type, isRight });
+  document.getElementById('scoreText').textContent = `✓ ${correct}  ✗ ${answered - correct}`;
+  checkAllAnswered();
+}
+
+function advance() {
+  // Mark all questions in current group as seen
+  const ids = sessionGroups[groupIdx].questions.map(q => q.id).filter(Boolean);
+  if (ids.length) markSeen(ids);
+  groupIdx++;
+  if (groupIdx >= sessionGroups.length) {
+    showResults();
+  } else {
+    showGroup();
+  }
+}
+
+function toHpScore(correct, total) {
+  if (total === 0) return 0;
+  const raw = correct / total * 2.0;
+  return Math.round(raw / 0.025) * 0.025;
+}
+
+function fmtHp(score) {
+  return score.toFixed(3).replace('.', ',').replace(/0$/, '').replace(/,$/, '');
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+
+  const total = sessionQueue.length;
+  const pct = Math.round((correct / total) * 100);
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('scoreCircleLabel').textContent = 'rätt';
+  document.getElementById('scoreDetail').textContent = `${correct} av ${total} rätt`;
+
+  // Per-type tally from questionResults
+  const perType = {};
+  for (const type of Object.keys(PART_INFO)) perType[type] = { correct: 0, total: 0 };
+  // Count totals from sessionQueue (includes unanswered)
+  for (const q of sessionQueue) perType[q.question_type].total++;
+  // Count correct from questionResults
+  for (const r of questionResults) if (r.isRight) perType[r.type].correct++;
+
+  const bd = document.getElementById('breakdown');
+  const typesUsed = Object.keys(PART_INFO).filter(t => perType[t].total > 0);
+
+  // HP betyg for full test
+  if (isFullTest) {
+    const vTypes = ['ORD','MEK','LAS'];
+    const kTypes = ['XYZ','KVA','NOG','DTK'];
+    const vCorrect = vTypes.reduce((s,t) => s + perType[t].correct, 0);
+    const vTotal   = vTypes.reduce((s,t) => s + perType[t].total,   0);
+    const kCorrect = kTypes.reduce((s,t) => s + perType[t].correct, 0);
+    const kTotal   = kTypes.reduce((s,t) => s + perType[t].total,   0);
+    const vScore = toHpScore(vCorrect, vTotal);
+    const kScore = toHpScore(kCorrect, kTotal);
+    const totScore = toHpScore(vCorrect + kCorrect, vTotal + kTotal);
+
+    document.getElementById('scorePct').textContent = fmtHp(totScore);
+    document.getElementById('scoreCircleLabel').textContent = 'HP-betyg';
+    document.getElementById('scoreDetail').textContent = `Skala 0–2  ·  ${correct} av ${total} rätt`;
+
+    const hpBox = `
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;text-align:center;">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+          <div style="font-size:1.6rem;font-weight:800;color:var(--accent)">${fmtHp(vScore)}</div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:4px">VERBAL</div>
+          <div style="font-size:0.78rem;color:var(--muted)">${vCorrect}/${vTotal} rätt</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+          <div style="font-size:1.6rem;font-weight:800;color:var(--accent)">${fmtHp(kScore)}</div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:4px">KVANTITATIV</div>
+          <div style="font-size:0.78rem;color:var(--muted)">${kCorrect}/${kTotal} rätt</div>
+        </div>
+        <div style="background:var(--surface2);border:2px solid var(--accent);border-radius:10px;padding:16px;">
+          <div style="font-size:1.6rem;font-weight:800;color:var(--accent)">${fmtHp(totScore)}</div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:4px">TOTALT</div>
+          <div style="font-size:0.78rem;color:var(--muted)">${correct}/${total} rätt</div>
+        </div>
+      </div>
+      <p style="font-size:0.75rem;color:var(--muted);margin-bottom:20px;text-align:center;">
+        Betyget är en uppskattning baserad på linjär skalning (0–2). Officiellt HP-betyg kan skilja sig något.
+      </p>`;
+
+    bd.innerHTML = hpBox + '<h3>Per delprov</h3>' + typesUsed.map(t => {
+      const { correct: c, total: tot } = perType[t];
+      const pct = tot ? Math.round(c/tot*100) : 0;
+      return `<div class="breakdown-row">
+        <span class="bd-type">${t}</span>
+        <div class="bd-bar-wrap"><div class="bd-bar" style="width:${pct}%"></div></div>
+        <span class="bd-score">${c}/${tot}</span>
+      </div>`;
+    }).join('');
+  } else {
+    // Single section — just show per-type bar
+    bd.innerHTML = typesUsed.length > 1
+      ? '<h3>Per delprov</h3>' + typesUsed.map(t => {
+          const { correct: c, total: tot } = perType[t];
+          const pct = tot ? Math.round(c/tot*100) : 0;
+          return `<div class="breakdown-row">
+            <span class="bd-type">${t}</span>
+            <div class="bd-bar-wrap"><div class="bd-bar" style="width:${pct}%"></div></div>
+            <span class="bd-score">${c}/${tot}</span>
+          </div>`;
+        }).join('')
+      : '';
+  }
+}
+
+function showMode() {
+  hideAllScreens();
+  document.getElementById('mode-screen').style.display = 'block';
+  updateSeenInfo();
+}
+
+function restartSame() {
+  if (!lastConfig) { showMode(); return; }
+  if (lastConfig.isFullTest) {
+    isFullTest = true; selectedPart = null;
+    buildQueue(); beginQuiz();
+  } else {
+    isFullTest = false; selectedPart = lastConfig.part;
+    document.getElementById('qtyInput').value = lastConfig.n;
+    buildQueue(); beginQuiz();
+  }
+}
+
+async function loadPassage(filename) {
+  if (passageCache[filename] !== undefined) return passageCache[filename];
+  try {
+    const r = await fetch('texts/' + filename);
+    if (!r.ok) { passageCache[filename] = null; return null; }
+    const txt = await r.text();
+    passageCache[filename] = txt;
+    return txt;
+  } catch { passageCache[filename] = null; return null; }
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+// ── Prefix / Suffix data ─────────────────────────────────────────────────────
+
+const PREFIX_DATA = [
+  // Prefix
+  { id:'p-a',     type:'prefix', word:'a-/an-',   meaning:'utan, inte',         examples:'amoralisk, anonym, ateist' },
+  { id:'p-ambi',  type:'prefix', word:'ambi-',    meaning:'båda, dubbel',       examples:'ambivalent, ambitiös' },
+  { id:'p-anti',  type:'prefix', word:'anti-',    meaning:'mot, emot',          examples:'antibiotika, antikvariat' },
+  { id:'p-bi',    type:'prefix', word:'bi-',      meaning:'två, dubbel',        examples:'bilateral, biografi' },
+  { id:'p-de',    type:'prefix', word:'de-/des-', meaning:'av, bort, negation', examples:'deaktivera, desinfektera' },
+  { id:'p-dis',   type:'prefix', word:'dis-',     meaning:'bort, negation',     examples:'diskvalificera, disharmoni' },
+  { id:'p-ex',    type:'prefix', word:'ex-',      meaning:'ut ur, tidigare',    examples:'exportera, expremier' },
+  { id:'p-extra', type:'prefix', word:'extra-',   meaning:'utanför, utöver',    examples:'extraordinär, extravagant' },
+  { id:'p-hetero',type:'prefix', word:'hetero-',  meaning:'olik, olika slag',   examples:'heterogen, heterosexuell' },
+  { id:'p-homo',  type:'prefix', word:'homo-',    meaning:'likadan, samma slag',examples:'homogen, homonym' },
+  { id:'p-hyper', type:'prefix', word:'hyper-',   meaning:'över, överdriven',   examples:'hyperaktiv, hyperbol' },
+  { id:'p-hypo',  type:'prefix', word:'hypo-',    meaning:'under, ofullständig',examples:'hypotes, hypotermi' },
+  { id:'p-in',    type:'prefix', word:'in-/im-/il-/ir-', meaning:'inte, negation', examples:'inaktiv, illegal, irrationell' },
+  { id:'p-inter', type:'prefix', word:'inter-',   meaning:'mellan, ömsesidig',  examples:'internationell, interagera' },
+  { id:'p-intra', type:'prefix', word:'intra-',   meaning:'inom, inuti',        examples:'intravenös, intranät' },
+  { id:'p-intro', type:'prefix', word:'intro-',   meaning:'inåt, inre',         examples:'introvert, introduktion' },
+  { id:'p-kontra',type:'prefix', word:'kontra-',  meaning:'mot, emot',          examples:'kontraproduktiv, kontrast' },
+  { id:'p-mal',   type:'prefix', word:'mal-',     meaning:'dålig, felaktig',    examples:'malnutrition, malplacerad' },
+  { id:'p-meta',  type:'prefix', word:'meta-',    meaning:'bortom, om',         examples:'metafor, metod' },
+  { id:'p-mikro', type:'prefix', word:'mikro-',   meaning:'liten, litet',       examples:'mikroskop, mikroorganism' },
+  { id:'p-mis',   type:'prefix', word:'mis-',     meaning:'fel, dålig',         examples:'missnöje, misstolka' },
+  { id:'p-mono',  type:'prefix', word:'mono-',    meaning:'ett, ensam',         examples:'monolog, monopol' },
+  { id:'p-multi', type:'prefix', word:'multi-',   meaning:'många, fler',        examples:'multikulturell, multimedia' },
+  { id:'p-neo',   type:'prefix', word:'neo-',     meaning:'ny, modern',         examples:'neonazism, neoklassisk' },
+  { id:'p-o',     type:'prefix', word:'o-',       meaning:'inte, mot (sv.)',    examples:'ovillig, ohälsosam, osynlig' },
+  { id:'p-omni',  type:'prefix', word:'omni-',    meaning:'all, allt',          examples:'omnivore, omnipotent' },
+  { id:'p-para',  type:'prefix', word:'para-',    meaning:'vid sidan av, skydd',examples:'parallell, parasit' },
+  { id:'p-poly',  type:'prefix', word:'poly-',    meaning:'många, fler',        examples:'polyglott, polygon' },
+  { id:'p-post',  type:'prefix', word:'post-',    meaning:'efter',              examples:'postmodern, postum' },
+  { id:'p-pre',   type:'prefix', word:'pre-',     meaning:'före, framför',      examples:'preliminär, premiss' },
+  { id:'p-pro',   type:'prefix', word:'pro-',     meaning:'framåt, för',        examples:'progress, proaktiv' },
+  { id:'p-pseudo',type:'prefix', word:'pseudo-',  meaning:'falsk, skenbar',     examples:'pseudonym, pseudovetenskap' },
+  { id:'p-re',    type:'prefix', word:'re-',      meaning:'igen, tillbaka',     examples:'reproducera, regenerera' },
+  { id:'p-semi',  type:'prefix', word:'semi-',    meaning:'halv, delvis',       examples:'semifinal, semikolon' },
+  { id:'p-sub',   type:'prefix', word:'sub-',     meaning:'under, nedanför',    examples:'subventionera, submarin' },
+  { id:'p-super', type:'prefix', word:'super-',   meaning:'över, överordnad',   examples:'supernaturlig, superhjälte' },
+  { id:'p-syn',   type:'prefix', word:'syn-/sym-',meaning:'med, tillsammans',   examples:'synkronisera, sympati' },
+  { id:'p-trans', type:'prefix', word:'trans-',   meaning:'över, igenom',       examples:'transport, transformera' },
+  { id:'p-ultra', type:'prefix', word:'ultra-',   meaning:'bortom, extremt',    examples:'ultraljud, ultraviolett' },
+  { id:'p-uni',   type:'prefix', word:'uni-',     meaning:'ett, enda',          examples:'uniform, universell' },
+  // Suffix
+  { id:'s-ism',   type:'suffix', word:'-ism',     meaning:'lära, rörelse, ideologi', examples:'liberalism, kapitalism' },
+  { id:'s-ist',   type:'suffix', word:'-ist',     meaning:'person som tillhör/utövar', examples:'socialist, feminist' },
+  { id:'s-itet',  type:'suffix', word:'-itet/-tet', meaning:'egenskap, tillstånd', examples:'aktivitet, kreativitet' },
+  { id:'s-ologi', type:'suffix', word:'-ologi/-logi', meaning:'läran om, vetenskap om', examples:'biologi, psykologi' },
+  { id:'s-log',   type:'suffix', word:'-log',     meaning:'expert, specialist',  examples:'psykolog, biolog' },
+  { id:'s-fob',   type:'suffix', word:'-fobi',    meaning:'rädsla, fobi',        examples:'klaustrofobi, agorafobi' },
+  { id:'s-fil',   type:'suffix', word:'-fil',     meaning:'kärlek till, intresse för', examples:'bibliofil, francofil' },
+  { id:'s-mani',  type:'suffix', word:'-mani',    meaning:'tvångsmässigt intresse', examples:'kleptomani, pyromani' },
+  { id:'s-krati', type:'suffix', word:'-krati/-krat', meaning:'styre, makt',    examples:'demokrati, byråkrat' },
+  { id:'s-nomi',  type:'suffix', word:'-nomi/-nom', meaning:'lag, ordning, förvaltning', examples:'ekonomi, astronomi' },
+  { id:'s-cid',   type:'suffix', word:'-cid',     meaning:'dödande',             examples:'insekticid, homicid' },
+  { id:'s-graf',  type:'suffix', word:'-graf/-grafi', meaning:'skrivare, bild, beskrivning', examples:'fotograf, geografi' },
+  { id:'s-skop',  type:'suffix', word:'-skop',    meaning:'instrument för att se', examples:'teleskop, mikroskop' },
+  { id:'s-tion',  type:'suffix', word:'-tion/-sion', meaning:'handling, tillstånd, resultat', examples:'nation, explosion' },
+  { id:'s-abel',  type:'suffix', word:'-abel/-ibel', meaning:'möjlig att, -bar', examples:'reparabel, flexibel' },
+  { id:'s-al',    type:'suffix', word:'-al/-ell',  meaning:'tillhörande, relaterad till', examples:'global, aktuell' },
+  { id:'s-os',    type:'suffix', word:'-ös/-os',   meaning:'full av, med egenskap av', examples:'nervös, religiös' },
+  { id:'s-isk',   type:'suffix', word:'-isk',      meaning:'tillhörande, karaktäriserad av', examples:'nordisk, heroisk' },
+  { id:'s-ment',  type:'suffix', word:'-ment',     meaning:'resultat, medel, tillstånd', examples:'argument, monument' },
+  { id:'s-vore',  type:'suffix', word:'-vor/-vore', meaning:'ätare av',          examples:'karnivore, herbivore' },
+  { id:'s-nom',   type:'suffix', word:'-nom',      meaning:'specialist, lag',    examples:'ekonom, agronom' },
+  { id:'s-fon',   type:'suffix', word:'-fon/-foni', meaning:'ljud, röst',        examples:'mikrofon, symfonin' },
+  { id:'s-krat',  type:'suffix', word:'-krat',     meaning:'person med makt',    examples:'demokrat, byråkrat' },
+  { id:'s-patisk',type:'suffix', word:'-patisk/-pati', meaning:'känsla, lidande, sjukdom', examples:'empatisk, sympati' },
+  { id:'s-gen',   type:'suffix', word:'-gen',      meaning:'som producerar, av visst ursprung', examples:'patogen, heterogen' },
+];
+
+// known prefix IDs for current user (loaded from server or localStorage)
+let pfKnownIds = new Set();
+let pfQueue = [];
+let pfIdx = 0;
+let pfFlipped = false;
+let pfFilter = 'all';
+
+async function showPrefixScreen() {
+  // Load known IDs
+  try {
+    const r = await fetch('/api/prefix-known');
+    if (r.ok) pfKnownIds = new Set((await r.json()).known);
+  } catch {}
+  document.getElementById('prefixUserLabel').textContent = document.getElementById('userLabel').textContent;
+  hideAllScreens();
+  document.getElementById('prefix-screen').style.display = 'block';
+  buildPfQueue();
+}
+
+function hideAllScreens() {
+  ['auth-screen','mode-screen','quiz-screen','results-screen','prefix-screen'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+}
+
+function setPfFilter(f) {
+  pfFilter = f;
+  ['all','prefix','suffix','unknown'].forEach(k => {
+    document.getElementById('pfTab'+k.charAt(0).toUpperCase()+k.slice(1)).classList.toggle('active', k===f);
+  });
+  buildPfQueue();
+}
+
+function buildPfQueue() {
+  let pool = PREFIX_DATA;
+  if (pfFilter === 'prefix') pool = pool.filter(p => p.type === 'prefix');
+  else if (pfFilter === 'suffix') pool = pool.filter(p => p.type === 'suffix');
+  else if (pfFilter === 'unknown') pool = pool.filter(p => !pfKnownIds.has(p.id));
+  pfQueue = shuffle(pool);
+  pfIdx = 0;
+  updatePfProgress();
+  showCard();
+}
+
+function updatePfProgress() {
+  const known = PREFIX_DATA.filter(p => pfKnownIds.has(p.id)).length;
+  const total = PREFIX_DATA.length;
+  const pct = total ? Math.round(known/total*100) : 0;
+  document.getElementById('pfProgressFill').style.width = pct + '%';
+  document.getElementById('pfProgressText').textContent = `${known}/${total} kan`;
+  if (pfQueue.length > 0) {
+    document.getElementById('pfCardCounter').textContent = `Kort ${pfIdx+1} av ${pfQueue.length}`;
+  } else {
+    document.getElementById('pfCardCounter').textContent = pfFilter === 'unknown'
+      ? 'Du kan alla! Byt filter för att öva mer.' : '';
+  }
+}
+
+function showCard() {
+  pfFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fcActions').style.display = 'none';
+  if (pfQueue.length === 0) {
+    document.getElementById('fcWord').textContent = pfFilter === 'unknown' ? '🎉' : '–';
+    document.getElementById('fcType').textContent = '';
+    document.getElementById('fcMeaning').textContent = pfFilter === 'unknown' ? 'Du kan alla!' : 'Inga kort';
+    document.getElementById('fcExamples').textContent = '';
+    return;
+  }
+  const card = pfQueue[pfIdx];
+  document.getElementById('fcWord').textContent = card.word;
+  document.getElementById('fcType').textContent = card.type === 'prefix' ? 'PREFIX' : 'SUFFIX';
+  document.getElementById('fcMeaning').textContent = card.meaning;
+  document.getElementById('fcExamples').textContent = 'Exempel: ' + card.examples;
+  document.getElementById('pfCardCounter').textContent = `Kort ${pfIdx+1} av ${pfQueue.length}`;
+}
+
+function flipCard() {
+  if (pfQueue.length === 0) return;
+  pfFlipped = !pfFlipped;
+  document.getElementById('flashcard').classList.toggle('flipped', pfFlipped);
+  document.getElementById('fcActions').style.display = pfFlipped ? 'grid' : 'none';
+}
+
+async function markCard(know) {
+  if (pfQueue.length === 0) return;
+  const card = pfQueue[pfIdx];
+  if (know) {
+    pfKnownIds.add(card.id);
+  } else {
+    pfKnownIds.delete(card.id);
+  }
+  // Save to server
+  try {
+    await fetch('/api/prefix-known', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ id: card.id, known: know })
+    });
+  } catch {}
+  // Advance
+  pfIdx++;
+  if (pfIdx >= pfQueue.length) {
+    // Re-build queue so unknown filter refreshes
+    if (pfFilter === 'unknown') buildPfQueue();
+    else { pfIdx = 0; }
+  }
+  updatePfProgress();
+  showCard();
+}
+
+init();
+</script>
+</body>
+</html>
