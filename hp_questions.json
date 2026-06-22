@@ -1,5 +1,5 @@
 {
-  "total_questions": 3319,
+  "total_questions": 3387,
   "generated": "2026-06-20",
   "notes": {
     "passage_file": "LAS/ELF reading passage saved in texts/ folder",
@@ -82944,6 +82944,1026 @@
           "variant": null
         }
       ]
+    },
+    {
+      "id": "HPHOST2023P3_31",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said here about the relationship between British and American folk songs?",
+      "options": [
+        "A) The British melodies were retained but the lyrics were replaced.",
+        "B) The original British folk songs developed beyond recognition.",
+        "C) American folk music gradually lost touch with its British roots.",
+        "D) American folk singers combined British lyrics with new music."
+      ],
+      "correct_answer": "A",
+      "passage_file": "c67c23b7e09267d4145ea2d78645f600",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_32",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied here?",
+      "options": [
+        "A) Measures against environmental destruction tend to be taken when it is already too late.",
+        "B) Environmental damage caused by chemical waste is usually very difficult to repair.",
+        "C) The chemical industry is unlikely to take responsibility for effects on the environment.",
+        "D) Predicting the consequences of actions to protect the environment can be difficult."
+      ],
+      "correct_answer": "D",
+      "passage_file": "a1d8050d95ae3c4451ad3ccdcaa404ba",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_33",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the author's view of the statistics given in the first few paragraphs?",
+      "options": [
+        "A) The actual situation is even worse than has sometimes been assumed.",
+        "B) Young people tend to suffer from mental ill-being more often than before.",
+        "C) There seems to be no obvious cure in sight for the foreseeable future.",
+        "D) The figures for mental disorder in the U.S. are clearly exaggerated."
+      ],
+      "correct_answer": "A",
+      "passage_file": "f5a03c7c1784b56fa894a8c4228b5e32",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_34",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What general picture of ADHD has emerged in recent years, according to the text?",
+      "options": [
+        "A) It is no longer seen as a mental disorder among teenagers and children.",
+        "B) Its overall frequency is believed to have increased by nearly a third.",
+        "C) It now appears to have reached almost epidemic proportions.",
+        "D) Its spread among young people is mainly attributed to better diagnostic tools."
+      ],
+      "correct_answer": "C",
+      "passage_file": "f5a03c7c1784b56fa894a8c4228b5e32",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_35",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is argued in relation to today's treatment of ADHD?",
+      "options": [
+        "A) Its use of special medication is completely uncalled for.",
+        "B) It is beneficial only if based on an accurate diagnosis.",
+        "C) Its assumed positive effects remain to be demonstrated.",
+        "D) It may give rise to the mental disorder it was meant to cure."
+      ],
+      "correct_answer": "B",
+      "passage_file": "f5a03c7c1784b56fa894a8c4228b5e32",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_36",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the author's opinion about the recent appearance of SCT as a suggested syndrome?",
+      "options": [
+        "A) It can be seen as a welcome addition to the present spectrum of diagnoses.",
+        "B) It will hardly be accepted by the majority of psychological practitioners.",
+        "C) It will bring more precision to the field of children's mental disorders.",
+        "D) It could well be open to even more clinical misuse than ADHD."
+      ],
+      "correct_answer": "D",
+      "passage_file": "f5a03c7c1784b56fa894a8c4228b5e32",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_37",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "How can the basic content and tone of the article best be described?",
+      "options": [
+        "A) As an alarm bell concerning the mental state of too many children across the U.S.",
+        "B) As a passionate protest against the increasing use of psychiatric diagnoses.",
+        "C) As an accusation that educational authorities and parents have failed their responsibilities.",
+        "D) As a much-needed call for more research into the causes of young people's mental disturbances."
+      ],
+      "correct_answer": "B",
+      "passage_file": "f5a03c7c1784b56fa894a8c4228b5e32",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_38",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said here about tantalum?",
+      "options": [
+        "A) It is increasingly used as an ingredient in supplements and medicines.",
+        "B) Its name is associated with its relative chemical stability.",
+        "C) Its properties were already known by the Ancient Greeks.",
+        "D) It has been found out to occur naturally in human bone structure."
+      ],
+      "correct_answer": "B",
+      "passage_file": "6c9762e8731e8c00865e5eae596cbd29",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_39",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the main focus in this text?",
+      "options": [
+        "A) The amazing capacity of the Internet to help us remember things correctly.",
+        "B) The possible negative effect of Internet memories on our future courses of action.",
+        "C) The potential of online facilities to help us avoid making the same mistake twice.",
+        "D) The risk of people's memories being distorted by online traces of past events."
+      ],
+      "correct_answer": "B",
+      "passage_file": "fa17b8ce4a63af275ff2225207bedc43",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPHOST2023P3_40",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What can be concluded from the text about El Greco?",
+      "options": [
+        "A) The characteristic figures in his paintings were the result of his own deliberate choice.",
+        "B) His visual defect explains some of the unusual features of his paintings.",
+        "C) His paintings are likely to have been created mainly from memory images.",
+        "D) The claim that he had a visual defect has been proven incorrect."
+      ],
+      "correct_answer": "A",
+      "passage_file": "5afa38f504aecc819573b3508b8b4b75",
+      "source_exam": "HPHOST2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_1",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What general conclusion can be drawn from this text?",
+      "options": [
+        "A) Different types of problems require different degrees of expertise.",
+        "B) Specialist knowledge has been replaced by common sense.",
+        "C) Expert competence tends to be undervalued in modern societies.",
+        "D) Nonspecialists are just as useful as experts in any given field."
+      ],
+      "correct_answer": "A",
+      "passage_file": "29f18015b9a5a8df6effae3f1d7ee410",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_2",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is further implied?",
+      "options": [
+        "A) Education worldwide should pay more attention to present-day urgent matters.",
+        "B) The current emphasis on cutting-edge expertise is not in doubt.",
+        "C) Major political questions may benefit from participation by nonexperts.",
+        "D) The public demand for experts has gradually started to rise."
+      ],
+      "correct_answer": "C",
+      "passage_file": "29f18015b9a5a8df6effae3f1d7ee410",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_3",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What are we told in the introductory paragraph?",
+      "options": [
+        "A) The Royal Navy initially sabotaged Parliament's ban on slave trading.",
+        "B) Europe and Africa were united in helping Britain to end the slave trade.",
+        "C) Britain forced other European nations to join them in fighting the slave trade.",
+        "D) African leaders often had a positive attitude towards involvement in slave trading."
+      ],
+      "correct_answer": "D",
+      "passage_file": "314094f7fe551f8883967a493574b663",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_4",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said about the Kroomen?",
+      "options": [
+        "A) They were usually relieved of the routine work of sailors at sea.",
+        "B) They were much appreciated for their achievements as slaver hunters.",
+        "C) They preferred to operate in independence from Royal Navy orders.",
+        "D) They made up a majority of slaver hunters in the 'Preventative Squadron'."
+      ],
+      "correct_answer": "B",
+      "passage_file": "314094f7fe551f8883967a493574b663",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_5",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is argued in relation to the Kru tribe?",
+      "options": [
+        "A) Their sense of making up a special group was partly linked to their contacts with Europeans.",
+        "B) Their traditional way of life came under threat by the arrival of foreign traders.",
+        "C) Their tribal loyalties were put to the test when confronted with the Preventative Squadron.",
+        "D) Their language and customs alone defined them as a separate national group."
+      ],
+      "correct_answer": "A",
+      "passage_file": "314094f7fe551f8883967a493574b663",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_6",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said in relation to the Kroomen in the Royal Navy?",
+      "options": [
+        "A) They enjoyed a number of privileges apart from the Navy's regular terms of employment.",
+        "B) They had to endure a great deal of prejudice from their British shipmates.",
+        "C) They tended to get into unnecessary trouble with other sailors due to their past experiences.",
+        "D) They refused to conform to the Navy's general working requirements at sea."
+      ],
+      "correct_answer": "A",
+      "passage_file": "314094f7fe551f8883967a493574b663",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_7",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied about racism with regard to the Kroomen in their heyday?",
+      "options": [
+        "A) Racism was so common in the Royal Navy that they hardly took any notice of it.",
+        "B) The Kroomen chose to ignore the racial problems that actually existed.",
+        "C) Racist attitudes were hardly an issue on board the ships of the Royal Navy.",
+        "D) Ordinary sailors often expressed openly racist views about them."
+      ],
+      "correct_answer": "C",
+      "passage_file": "314094f7fe551f8883967a493574b663",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_8",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "How can the tone of the final sentence best be characterized?",
+      "options": [
+        "A) Sarcastic",
+        "B) Confident",
+        "C) Humorous",
+        "D) Surprised"
+      ],
+      "correct_answer": "C",
+      "passage_file": "5e73310b734429c89486176c658c5261",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_9",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "How can the zip best be characterized, according to the text?",
+      "options": [
+        "A) As a striking example of unexpected but instant success.",
+        "B) As a seemingly trivial device gradually conquering the world.",
+        "C) As the result of a timely flash of genius meeting a hidden demand.",
+        "D) As even more essential than some more famous technological advances."
+      ],
+      "correct_answer": "B",
+      "passage_file": "a22419a4ef1d949dbaa9facbef2a2e1f",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPVAR2023P3_10",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the main argument here about topnotch intellectuals?",
+      "options": [
+        "A) Their fame often makes them neglect what they should really be doing.",
+        "B) They should spend less time making their views public property.",
+        "C) Their capacity should be made useful beyond their areas of expertise.",
+        "D) They tend to take their celebrity status too much for granted."
+      ],
+      "correct_answer": "A",
+      "passage_file": "d6f4d54523016c25667b4462c1374a2f",
+      "source_exam": "HPVAR2023P3"
+    },
+    {
+      "id": "HPHOST2022P2_31",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said about the knowledge of disease up until 1800?",
+      "options": [
+        "A) Not much was known because it was impossible to observe organisms as small as germs.",
+        "B) Germs had been observed but were not thought to be at all related to disease.",
+        "C) The germs found in blood were not linked to the organisms that had been found in water.",
+        "D) The organisms found in blood were not seen as the source of disease."
+      ],
+      "correct_answer": "D",
+      "passage_file": "970e17551bef1f5b276ffcec11293837",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_32",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What can be concluded here?",
+      "options": [
+        "A) Parents have too often turned a blind eye to children's media habits.",
+        "B) There is as yet no consensus among researchers on the risks of smartphone use by teenagers.",
+        "C) Mobile devices are being unfairly blamed for young people's obsession with social media.",
+        "D) The risks of children's smartphone exposure have been wildly exaggerated."
+      ],
+      "correct_answer": "B",
+      "passage_file": "757af4b3df0cf59f73a4bae8a41eebbe",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_33",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied early on in the text about the emergence of human language?",
+      "options": [
+        "A) The Linguistic Society of Paris immediately realised its evolutionary beginnings.",
+        "B) Findings concerning its roots were rare during the 20th century.",
+        "C) Darwin's theory was credited with having solved the problem once and for all.",
+        "D) Its early evolutionary history is today a concern mainly in religious circles."
+      ],
+      "correct_answer": "B",
+      "passage_file": "da7c9707bbd31b353ff187b611cb2273",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_34",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is claimed in relation to current views on the origin of language?",
+      "options": [
+        "A) They are based on new evidence derived from modern brain research.",
+        "B) Most linguists appear reluctant to accept Darwin's perspective.",
+        "C) There seems to be no clearly dominant opinion on the issues involved.",
+        "D) Only a few linguists find it an urgent research question."
+      ],
+      "correct_answer": "C",
+      "passage_file": "da7c9707bbd31b353ff187b611cb2273",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_35",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said about Steven Pinker and Paul Bloom's views on the evolution of human language?",
+      "options": [
+        "A) Their attitude was similar to that of most 19th-century linguists.",
+        "B) They presented fresh arguments against Darwin's idea of an evolutionary origin.",
+        "C) Their research was much influenced by the early scepticism expressed by Noam Chomsky.",
+        "D) They supported the theory of a stepwise development of language."
+      ],
+      "correct_answer": "D",
+      "passage_file": "da7c9707bbd31b353ff187b611cb2273",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_36",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is Noam Chomsky's more recent view of human language?",
+      "options": [
+        "A) It arose in response to communicative pressure in early communities.",
+        "B) Its emergence paved the way for the human potential to combine ideas.",
+        "C) It resulted from a sudden genetic change expanding human mental capacity.",
+        "D) Its initial manifestations were similar to certain types of animal language."
+      ],
+      "correct_answer": "B",
+      "passage_file": "da7c9707bbd31b353ff187b611cb2273",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_37",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the writer's basic impression of present-day research into the origin of language?",
+      "options": [
+        "A) It provides a good example of the difficulties involved in studying complex mental phenomena.",
+        "B) It shows that significant progress has been made since the mid-19th century.",
+        "C) It can so far be characterised as unexpected as well as utterly disappointing.",
+        "D) It proves that even prominent linguists can go wrong when faced with the complexity of some languages."
+      ],
+      "correct_answer": "A",
+      "passage_file": "da7c9707bbd31b353ff187b611cb2273",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_38",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied here?",
+      "options": [
+        "A) Staying awake for a long time will lead to a collapse of your immune system.",
+        "B) There is still no satisfactory account of why sleep is necessary for humans to survive.",
+        "C) Lack of sleep is fatal mainly due to the accumulation of poisonous substances in your brain.",
+        "D) Clearly most people do not sleep as much as they should in order to function optimally."
+      ],
+      "correct_answer": "B",
+      "passage_file": "e3095dd85dda700f8bc96afbb89bb96d",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_39",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What specific circumstance is emphasized in this text?",
+      "options": [
+        "A) The link between scarcity of food and excessive flooding of the Nile.",
+        "B) The spectacular tales of volcanic activity found in old manuscripts.",
+        "C) The disastrous effects of human-caused climate change from long ago.",
+        "D) The importance of the Nile for agriculture and society at large."
+      ],
+      "correct_answer": "D",
+      "passage_file": "4f571e1a559375012f1a592e6b70a042",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPHOST2022P2_40",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What are we told here?",
+      "options": [
+        "A) The brain may process sounds that were never there in the first place.",
+        "B) The brain seems to process sounds and meanings in the same region.",
+        "C) The brain processes all sounds before it begins processing words.",
+        "D) The brain never uses meaning to infer the individual sounds of words."
+      ],
+      "correct_answer": "A",
+      "passage_file": "df231ff4c7dc92045ec8f34d0442760c",
+      "source_exam": "HPHOST2022P2"
+    },
+    {
+      "id": "HPMAJ2022P3_1",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is argued here?",
+      "options": [
+        "A) Short-term business prospects are looking dim for GM crops.",
+        "B) Development of new GM seeds will stimulate the agricultural market.",
+        "C) We are now witnessing the definitive end of the GM success story.",
+        "D) The long-term profitability of GM food is not in doubt."
+      ],
+      "correct_answer": "A",
+      "passage_file": "439f075418afdb622df6fd76602bdc92",
+      "source_exam": "HPMAJ2022P3"
+    },
+    {
+      "id": "HPMAJ2022P3_2",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What else is implied?",
+      "options": [
+        "A) There is no longer any real demand for GM food.",
+        "B) The market potential for GM was misjudged from the start.",
+        "C) Some countries remain opposed to the growing of GM seeds.",
+        "D) More attention should be paid to the environmental aspects of GM."
+      ],
+      "correct_answer": "C",
+      "passage_file": "439f075418afdb622df6fd76602bdc92",
+      "source_exam": "HPMAJ2022P3"
+    },
+    {
+      "id": "HPMAJ2022P3_8",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied here about mole rats?",
+      "options": [
+        "A) They have evolved to become even more resilient in recent years.",
+        "B) Their bodies mainly use fructose instead of glucose to create energy.",
+        "C) They would function just as well without access to oxygen.",
+        "D) Their bodies are uniquely adapted to endure extreme conditions."
+      ],
+      "correct_answer": "D",
+      "passage_file": "d7db181efca1cea2a04cd5a3d00e6899",
+      "source_exam": "HPMAJ2022P3"
+    },
+    {
+      "id": "HPMAJ2022P3_9",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied here about Newtok?",
+      "options": [
+        "A) It illustrates the complexity involved in adapting to effects caused by climate change.",
+        "B) It represents an encouraging example of how to successfully react to climate change.",
+        "C) It shows the difficulty for locals to agree on adjustments due to climate change.",
+        "D) It exemplifies the short-sightedness of most measures taken against climate change."
+      ],
+      "correct_answer": "A",
+      "passage_file": "67f047d1865fd8999b7f6b0063df9cc0",
+      "source_exam": "HPMAJ2022P3"
+    },
+    {
+      "id": "HPMAJ2022P3_10",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied here?",
+      "options": [
+        "A) The latest research reveals a more complex picture of the Atlantic slave trade.",
+        "B) The British dominated the Caribbean slave trade during the early period.",
+        "C) The Portuguese gradually took over the Atlantic slave trade.",
+        "D) The slave trade route to North America went via Brazil."
+      ],
+      "correct_answer": "A",
+      "passage_file": "990a05e72ef4280b0f571f74e01dd3de",
+      "source_exam": "HPMAJ2022P3"
+    },
+    {
+      "id": "HPMARS2022P4_6",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied regarding the 1878 Paris exhibition?",
+      "options": [
+        "A) It allowed de Sautuola to publicly display his own findings.",
+        "B) It opened his eyes to the possible nature of his own finds.",
+        "C) It was the starting point for his interest in archaeology.",
+        "D) It gave him a chance to compare his paintings with others."
+      ],
+      "correct_answer": "B",
+      "passage_file": "b283d13f5f87cbfd380e72d46c0975f2",
+      "source_exam": "HPMARS2022P4"
+    },
+    {
+      "id": "HPMARS2022P4_7",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said about de Sautuola's reaction to Cartailhac's verdict?",
+      "options": [
+        "A) He gradually withdrew from his involvement in archaeology.",
+        "B) He began to question the authenticity of his own discoveries.",
+        "C) He was deeply hurt by the lack of support for his findings.",
+        "D) He cared little about the views of professional archaeologists."
+      ],
+      "correct_answer": "C",
+      "passage_file": "b283d13f5f87cbfd380e72d46c0975f2",
+      "source_exam": "HPMARS2022P4"
+    },
+    {
+      "id": "HPMARS2022P4_8",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What are we told about the additional cave painting discoveries between 1890 and 1901?",
+      "options": [
+        "A) They eventually led to the acceptance of de Sautuola's discoveries.",
+        "B) Some of them were apparently elaborate pranks by local artists.",
+        "C) The archaeology community remained equally skeptical about all of them.",
+        "D) Archaeologists were confused by the lack of painting tools found nearby."
+      ],
+      "correct_answer": "A",
+      "passage_file": "b283d13f5f87cbfd380e72d46c0975f2",
+      "source_exam": "HPMARS2022P4"
+    },
+    {
+      "id": "HPMARS2022P4_9",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the modern archaeological view of the Altamira paintings?",
+      "options": [
+        "A) Researchers argue whether they are 15,000 or 35,000 years old.",
+        "B) They appear to be the oldest cave paintings found in Europe.",
+        "C) There are fundamental differences between them and those in France.",
+        "D) They were created during a very long period of time."
+      ],
+      "correct_answer": "D",
+      "passage_file": "b283d13f5f87cbfd380e72d46c0975f2",
+      "source_exam": "HPMARS2022P4"
+    },
+    {
+      "id": "HPMARS2022P4_10",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied about the painting creation process at Altamira?",
+      "options": [
+        "A) Some of them were created by carving directly into the stone.",
+        "B) The hardness of the rock was particularly suitable for painting.",
+        "C) The painters incorporated the natural shape of the stone into the work.",
+        "D) The pigment used was made from particles scraped from the rock."
+      ],
+      "correct_answer": "C",
+      "passage_file": "b283d13f5f87cbfd380e72d46c0975f2",
+      "source_exam": "HPMARS2022P4"
+    },
+    {
+      "id": "HPMAJ2021P1_32",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied about Changing World Technologies?",
+      "options": [
+        "A) Its production method laid the foundation for later and more effective approaches.",
+        "B) Its method has been directly copied by more recent companies with great success.",
+        "C) It successfully used a production method which most scientists claimed was impossible.",
+        "D) It used a method that turned out to be a dead end in the development of biofuel alternatives."
+      ],
+      "correct_answer": "D",
+      "passage_file": "c228e34c2534286fc59049be1b6cbec2",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPMAJ2021P1_33",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What can be concluded about Wollstonecraft and Mary Shelley from the opening paragraph?",
+      "options": [
+        "A) Shelley seems to have inherited much of her mother's personality.",
+        "B) Both expressed visions of a broader life spectrum for women.",
+        "C) Wollstonecraft inspired her daughter to become a well-known writer.",
+        "D) They lived at a time when women's rights were already a big political issue."
+      ],
+      "correct_answer": "B",
+      "passage_file": "a3ce1cfa19dc55dc178dae964b0bb6af",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPMAJ2021P1_34",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What can be concluded about Wollstonecraft's education?",
+      "options": [
+        "A) Shelley took her educational opportunities for granted.",
+        "B) Both writers were born into conditions of relative poverty.",
+        "C) Wollstonecraft was well aware of her lack of proper schooling.",
+        "D) The two women's similar upbringing promoted their writing careers."
+      ],
+      "correct_answer": "C",
+      "passage_file": "a3ce1cfa19dc55dc178dae964b0bb6af",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPMAJ2021P1_35",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said about Wollstonecraft's time in France?",
+      "options": [
+        "A) Her first-hand experience of the French Revolution changed her views on it.",
+        "B) She regretted the result of her romance with Gilbert Imlay in Paris.",
+        "C) Her support of the outcome of the French Revolution lasted her entire life.",
+        "D) She met her first husband during a random visit to the French capital."
+      ],
+      "correct_answer": "A",
+      "passage_file": "a3ce1cfa19dc55dc178dae964b0bb6af",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPMAJ2021P1_36",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "How can Wollstonecraft's personality best be characterized?",
+      "options": [
+        "A) She was conscious of her temperamental shortcomings as a mother.",
+        "B) She consistently put her political convictions into practice in her own life.",
+        "C) She was sceptical about the possibility of equality between women and men.",
+        "D) She embodied a clash between political values and private life."
+      ],
+      "correct_answer": "D",
+      "passage_file": "a3ce1cfa19dc55dc178dae964b0bb6af",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPMAJ2021P1_37",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "Which of the following statements best describes Wollstonecraft and Shelley?",
+      "options": [
+        "A) Only one of them became a literary celebrity in her own lifetime.",
+        "B) They can now be seen as pioneers in their respective literary fields.",
+        "C) Only late in their lives was their literary work paid proper attention.",
+        "D) Their personal failings continue to affect views on their literary output."
+      ],
+      "correct_answer": "B",
+      "passage_file": "a3ce1cfa19dc55dc178dae964b0bb6af",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPMAJ2021P1_38",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied here about ghosts?",
+      "options": [
+        "A) A belief in ghosts is no longer regarded as irrational by scientists.",
+        "B) The link between certain buildings and ghosts can now be explained.",
+        "C) A majority of British people seem to have felt the presence of ghosts.",
+        "D) The existence of ghosts remains to be proved scientifically."
+      ],
+      "correct_answer": "D",
+      "passage_file": "f05bd37a28567f8eb53c3e4967074e8b",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPMAJ2021P1_40",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What can be concluded about Julius Caesar from this text?",
+      "options": [
+        "A) He most likely never wore the famous laurel wreath in public.",
+        "B) His style of clothes and hair was much in fashion in Ancient Rome.",
+        "C) He was clearly not as vain about his appearance as some have suggested.",
+        "D) He was easily convinced to wear a laurel wreath as a symbol of his greatness."
+      ],
+      "correct_answer": "D",
+      "passage_file": "f00deb927a968c1a14d5a834533157a3",
+      "source_exam": "HPMAJ2021P1"
+    },
+    {
+      "id": "HPHOST2016P4_6",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What are we told in the opening paragraph?",
+      "options": [
+        "A) It took a long time for doctors to put Jenner's ideas into practice.",
+        "B) Jenner's sensational discovery was given a mixed reception.",
+        "C) The public found it difficult to believe Jenner's claims.",
+        "D) The usefulness of Jenner's vaccine was widely doubted in medical circles."
+      ],
+      "correct_answer": "B",
+      "passage_file": "b5fc1603bedac1b812739ca636763ad9",
+      "source_exam": "HPHOST2016P4"
+    },
+    {
+      "id": "HPHOST2016P4_7",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied about Jenner's vaccine in relation to general health in the US?",
+      "options": [
+        "A) Its role in longer lives has been exaggerated.",
+        "B) It was gradually found effective against various diseases.",
+        "C) Its use was long resisted by American health authorities.",
+        "D) It was one of several important factors behind health improvements."
+      ],
+      "correct_answer": "D",
+      "passage_file": "b5fc1603bedac1b812739ca636763ad9",
+      "source_exam": "HPHOST2016P4"
+    },
+    {
+      "id": "HPHOST2016P4_8",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What are we told about the 1950s from a medical viewpoint?",
+      "options": [
+        "A) It was a time of justified optimism about eliminating all infectious diseases.",
+        "B) Parents were asked to prevent children from getting certain diseases.",
+        "C) It was a period of especially dangerous disease outbreaks.",
+        "D) There was awareness that some diseases posed a greater threat to adults."
+      ],
+      "correct_answer": "D",
+      "passage_file": "b5fc1603bedac1b812739ca636763ad9",
+      "source_exam": "HPHOST2016P4"
+    },
+    {
+      "id": "HPHOST2016P4_9",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is Arthur Allen's attitude to vaccination skeptics?",
+      "options": [
+        "A) He agrees that research into vaccine effects cannot be trusted.",
+        "B) He is suspicious of arguments put forward by many antivaccinists.",
+        "C) He fails to understand parental concerns about vaccines.",
+        "D) He believes personal views are equal to scientific evidence."
+      ],
+      "correct_answer": "B",
+      "passage_file": "b5fc1603bedac1b812739ca636763ad9",
+      "source_exam": "HPHOST2016P4"
+    },
+    {
+      "id": "HPHOST2016P4_10",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is Allen's view of the present vaccination situation in the US?",
+      "options": [
+        "A) Past programs make current vaccination less necessary.",
+        "B) Overall vaccine effects remain doubtful long-term.",
+        "C) Recent developments require serious consideration of pros and cons.",
+        "D) Discovery of new diseases without vaccines is unavoidable."
+      ],
+      "correct_answer": "C",
+      "passage_file": "b5fc1603bedac1b812739ca636763ad9",
+      "source_exam": "HPHOST2016P4"
+    },
+    {
+      "id": "HPVAR2025P2_31",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied about Pedro II?",
+      "options": [
+        "A) His policy for freely accepting European immigrants was highly unpopular.",
+        "B) His rule led to a slow but consistent decline in Brazil's general development.",
+        "C) His forced exile was a direct consequence of the way he treated his daughter.",
+        "D) His removal was not in any obvious way related to his ability as a ruler."
+      ],
+      "correct_answer": "D",
+      "passage_file": "ce1eb66b2133b6fcc5797ace751e3471",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_32",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the main point of this text?",
+      "options": [
+        "A) It may be a long time before humans can safely return to the area.",
+        "B) Wildlife in the area seems to have recovered since the disaster.",
+        "C) Wild animals are less affected by radiation than humans are.",
+        "D) A human-free environment is highly beneficial for wildlife."
+      ],
+      "correct_answer": "D",
+      "passage_file": "f245926529a058327c9348a9a4647e36",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_33",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied about Florence Nightingale and nursing in the introductory paragraphs?",
+      "options": [
+        "A) She was guided by intuition rather than hard facts in her reform agenda.",
+        "B) Her once revolutionary ideas have long been common practice the world over.",
+        "C) She had to endure a lot of male prejudice in her use of statistical evidence.",
+        "D) Her reputation rests on her practical work rather than on her scientific insights."
+      ],
+      "correct_answer": "B",
+      "passage_file": "da80b4c5cf5d33dd71db62c0982fe3cf",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_34",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is argued in connection with present-day nursing?",
+      "options": [
+        "A) It is still mainly focused on taking care of patients' practical needs.",
+        "B) Patient safety will always depend on collaboration between nurses and doctors.",
+        "C) There is an obvious risk that it will gradually lose its uniquely personal qualities.",
+        "D) It is increasingly blurring the old distinction between doctors and nurses."
+      ],
+      "correct_answer": "D",
+      "passage_file": "da80b4c5cf5d33dd71db62c0982fe3cf",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_35",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "Which of the following statements is most in accordance with the text?",
+      "options": [
+        "A) Nurses' close connections with patients have been negatively affected by recent developments.",
+        "B) Recent changes in nursing have left traces only in some parts of the world.",
+        "C) The new role assigned to nurses has so far been a global success story.",
+        "D) Modern nursing has brought new political insights into health-care systems worldwide."
+      ],
+      "correct_answer": "B",
+      "passage_file": "da80b4c5cf5d33dd71db62c0982fe3cf",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_36",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied concerning job opportunities for nurses?",
+      "options": [
+        "A) There will be plenty of positions available in most parts of the world.",
+        "B) Old-style nursing will to a large extent be carried out by robots.",
+        "C) The prospects for their profession are currently looking rather dim.",
+        "D) Today's lack of nurses is predicted to change in the years ahead."
+      ],
+      "correct_answer": "A",
+      "passage_file": "da80b4c5cf5d33dd71db62c0982fe3cf",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_37",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said about the future of nursing and technology?",
+      "options": [
+        "A) There will be a conflict between human and technological aspects.",
+        "B) Nursing is for better or worse bound to change beyond recognition.",
+        "C) Nursing will in various ways benefit from modern developments.",
+        "D) Technological innovation will likely result in inferior care for patients."
+      ],
+      "correct_answer": "C",
+      "passage_file": "da80b4c5cf5d33dd71db62c0982fe3cf",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_38",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied in connection with the first farming communities?",
+      "options": [
+        "A) The diet among the early farmers was more healthy than that of previous societies.",
+        "B) The importance of bread has been exaggerated in research on human development.",
+        "C) The introduction of bread did not generally lead to a more healthy food intake.",
+        "D) The role of bread in the development of human civilization is hotly debated."
+      ],
+      "correct_answer": "C",
+      "passage_file": "dcdefa1296ebdf589f87938bfaf45d98",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_39",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What are we told here about the Museum of Black Civilizations?",
+      "options": [
+        "A) One of its chief aims is to promote African consciousness in a wide sense.",
+        "B) The majority of its present exhibits derive from European museums.",
+        "C) Its main purpose is to serve as a reminder of Africa's colonial past.",
+        "D) Some of its space is especially reserved for artworks produced in Europe."
+      ],
+      "correct_answer": "A",
+      "passage_file": "eaa8d13eb277cf6d41db8f2028ed6f27",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2025P2_40",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What word best describes the character of John Falstaff as depicted by Shakespeare?",
+      "options": [
+        "A) Immoral",
+        "B) Sympathetic",
+        "C) Disloyal",
+        "D) Generous"
+      ],
+      "correct_answer": "A",
+      "passage_file": "d0c315d4ed4f0d15dd1fdaeefac56918",
+      "source_exam": "HPVAR2025P2"
+    },
+    {
+      "id": "HPVAR2017P3_1",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is said in this text?",
+      "options": [
+        "A) People living in India rarely need to know more than one language.",
+        "B) Knowing two languages keeps an individual mentally alert for a longer period of time.",
+        "C) For people diagnosed with dementia, higher education leads to a longer life.",
+        "D) The more languages you know, the better your mental health will remain late in life."
+      ],
+      "correct_answer": "B",
+      "passage_file": "8911c0b1793da3e385d2cf7dd7782c81",
+      "source_exam": "HPVAR2017P3"
+    },
+    {
+      "id": "HPVAR2017P3_2",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the main point here?",
+      "options": [
+        "A) The success story of Silent Spring has come to an end.",
+        "B) Industry has by now accepted Carson's main arguments.",
+        "C) The basic idea of Silent Spring remains controversial.",
+        "D) Carson was wrong in many of her environmental predictions."
+      ],
+      "correct_answer": "C",
+      "passage_file": "81da62394b9c43f85044304a46e3fb86",
+      "source_exam": "HPVAR2017P3"
+    },
+    {
+      "id": "HPVAR2017P3_8",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is implied here?",
+      "options": [
+        "A) Moms often tend to show greater understanding than dads for shy children.",
+        "B) Current social ideals tend to encourage children with an extrovert personality.",
+        "C) Introvert children are generally seen as more intelligent than others.",
+        "D) Pushy parents may affect children's chances of school success negatively."
+      ],
+      "correct_answer": "B",
+      "passage_file": "907859eb3c714b88c0f7b7af77871caa",
+      "source_exam": "HPVAR2017P3"
+    },
+    {
+      "id": "HPVAR2017P3_9",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What may be concluded from this text?",
+      "options": [
+        "A) In today's society, language tests can never be both fair and just.",
+        "B) Cooperation between testers and educational politicians is needed to ensure legitimate tests.",
+        "C) Language testers can contribute to greater impartiality in decisions made concerning immigrants.",
+        "D) National policies have changed the way language tests are produced."
+      ],
+      "correct_answer": "C",
+      "passage_file": "8d2b737db9499795d0e54d8624b2744a",
+      "source_exam": "HPVAR2017P3"
+    },
+    {
+      "id": "HPVAR2017P3_10",
+      "question_type": "ELF",
+      "section_type": "verbal",
+      "question_text": "What is the main news value in this text?",
+      "options": [
+        "A) Vaccines must be protected from the African heat.",
+        "B) The new meningitis vaccine is most effective in hot climates.",
+        "C) Earlier meningitis vaccines have been ineffective in Africa.",
+        "D) A recently developed vaccine is less sensitive to high temperatures."
+      ],
+      "correct_answer": "D",
+      "passage_file": "6580e2fb15a36050c92728b8a7881240",
+      "source_exam": "HPVAR2017P3"
     }
   ]
 }
