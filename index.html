@@ -153,6 +153,23 @@
   }
   .next-btn:hover { background: var(--accent-hover); }
 
+  /* ── Quiz top bar ── */
+  .quiz-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .quiz-topbar .back-btn {
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+    transition: all 0.15s;
+  }
+  .quiz-topbar .back-btn:hover { border-color: var(--wrong); color: var(--wrong); }
+  .timer-display {
+    font-size: 0.9rem; font-weight: 700; color: var(--muted);
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 7px 14px; font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+  .timer-display.warn { color: var(--warn); border-color: var(--warn); }
+  .timer-display.urgent { color: var(--wrong); border-color: var(--wrong); }
+
   /* ── Grouped questions ── */
   .question-item { margin-bottom: 24px; }
   .question-item + .question-item { border-top: 1px solid var(--border); padding-top: 24px; }
@@ -174,7 +191,7 @@
   .score-label { font-size: 0.8rem; color: var(--muted); }
   .score-detail { color: var(--muted); margin-bottom: 28px; }
   .breakdown { text-align: left; }
-  .breakdown h3 { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .breakdown h3, .breakdown-h3 { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
   .breakdown-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
   .breakdown-row:last-child { border-bottom: none; }
   .bd-type { font-weight: 700; color: var(--accent); width: 44px; }
@@ -281,14 +298,24 @@
       <button onclick="logout()">Logga ut</button>
     </div>
     <div class="card">
-      <div style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:24px">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:12px">
         <div class="full-test-btn" id="fullTestBtn" style="cursor:pointer;margin-bottom:0">
           Fullständigt provpass
-          <span class="sub">10 ORD · 10 MEK · 20 LAS · 12 XYZ · 10 KVA · 6 NOG · 12 DTK = 80 frågor</span>
+          <span class="sub">10 ORD · 10 MEK · 12 LAS · 8 ELF · 12 XYZ · 10 KVA · 6 NOG · 12 DTK = 80 frågor · ⏱ 110 min</span>
         </div>
         <button onclick="showPrefixScreen()" style="background:var(--surface2);border:2px solid var(--border);border-radius:10px;padding:18px 16px;cursor:pointer;color:var(--text);font-size:0.85rem;font-weight:700;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
           🔤 Prefix &<br>Suffix
         </button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
+        <div class="full-test-btn" id="verbalTestBtn" style="cursor:pointer;margin-bottom:0;background:var(--surface2);color:var(--text);border:2px solid var(--border)">
+          Verbal provpass
+          <span class="sub" style="color:var(--muted)">10 ORD · 10 MEK · 12 LAS · 8 ELF = 40 frågor</span>
+        </div>
+        <div class="full-test-btn" id="kvantTestBtn" style="cursor:pointer;margin-bottom:0;background:var(--surface2);color:var(--text);border:2px solid var(--border)">
+          Kvantitativt provpass
+          <span class="sub" style="color:var(--muted)">12 XYZ · 10 KVA · 6 NOG · 12 DTK = 40 frågor</span>
+        </div>
       </div>
 
       <p class="section-label">Eller välj enskilda delprover</p>
@@ -307,6 +334,10 @@
   <!-- QUIZ -->
   <div id="quiz-screen">
     <div class="card">
+      <div class="quiz-topbar">
+        <button class="back-btn" onclick="confirmQuit()">← Avsluta</button>
+        <div class="timer-display" id="timerDisplay" style="display:none">⏱ 1:50:00</div>
+      </div>
       <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
       <div class="progress-meta">
         <span id="progressText"></span>
@@ -413,6 +444,7 @@ const PART_INFO = {
   ORD: { full: 'Ordförståelse',           color: '#5b6ef5', testCount: 10 },
   MEK: { full: 'Meningskomplettering',    color: '#8b5cf6', testCount: 10 },
   LAS: { full: 'Läsförståelse',           color: '#06b6d4', testCount: 20 },
+  ELF: { full: 'Engelsk läsförståelse',   color: '#0ea5e9', testCount: 10 },
   XYZ: { full: 'Matematisk problemlösning', color: '#10b981', testCount: 12 },
   KVA: { full: 'Kvantitativa jämförelser', color: '#f59e0b', testCount: 10 },
   NOG: { full: 'Noggrannhet',             color: '#ef4444', testCount: 6  },
@@ -426,11 +458,19 @@ let groupIdx = 0;
 let correct = 0;
 let answered = 0;
 let selectedPart = null;
-let isFullTest = false;
+let testMode = 'single'; // 'single' | 'full' | 'verbal' | 'kvant'
 let lastConfig = null;
 let questionResults = []; // {type, section, isRight} per answered question
 let seenIds = new Set();   // question IDs already done by this user
 let authMode = 'login';
+
+// Timer state
+let timerInterval = null;
+let timerSeconds = 0;
+
+const FULL_COUNTS  = { ORD:10, MEK:10, LAS:12, ELF:8, XYZ:12, KVA:10, NOG:6, DTK:12 };
+const VERBAL_COUNTS = { ORD:10, MEK:10, LAS:12, ELF:8 };
+const KVANT_COUNTS  = { XYZ:12, KVA:10, NOG:6, DTK:12 };
 
 // Passage cache: passage_file -> text
 const passageCache = {};
@@ -494,8 +534,12 @@ async function resetSeen() {
 }
 
 function updateSeenInfo() {
-  if (!selectedPart && !isFullTest) { document.getElementById('seenInfo').innerHTML = ''; return; }
-  const types = isFullTest ? Object.keys(PART_INFO) : [selectedPart];
+  if (testMode === 'single' && !selectedPart) { document.getElementById('seenInfo').innerHTML = ''; return; }
+  let types;
+  if (testMode === 'full')   types = Object.keys(FULL_COUNTS);
+  else if (testMode === 'verbal') types = Object.keys(VERBAL_COUNTS);
+  else if (testMode === 'kvant')  types = Object.keys(KVANT_COUNTS);
+  else types = [selectedPart];
   const total = types.reduce((s,t) => s + allQuestions.filter(q=>q.question_type===t).length, 0);
   const seen  = types.reduce((s,t) => s + allQuestions.filter(q=>q.question_type===t && seenIds.has(q.id)).length, 0);
   const unseen = total - seen;
@@ -542,6 +586,8 @@ function buildModeScreen() {
   }
 
   document.getElementById('fullTestBtn').addEventListener('click', startFullTest);
+  document.getElementById('verbalTestBtn').addEventListener('click', startVerbalTest);
+  document.getElementById('kvantTestBtn').addEventListener('click', startKvantTest);
   document.getElementById('startBtn').addEventListener('click', startSession);
 }
 
@@ -549,7 +595,7 @@ function selectPart(type, btn) {
   document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   selectedPart = type;
-  isFullTest = false;
+  testMode = 'single';
   const unseen = allQuestions.filter(q => q.question_type === type && !seenIds.has(q.id));
   const max = allQuestions.filter(q => q.question_type === type).length;
   const qty = document.getElementById('qtyInput');
@@ -563,7 +609,25 @@ function selectPart(type, btn) {
 }
 
 function startFullTest() {
-  isFullTest = true;
+  testMode = 'full';
+  selectedPart = null;
+  document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('qtyRow').style.display = 'none';
+  buildQueue();
+  beginQuiz();
+}
+
+function startVerbalTest() {
+  testMode = 'verbal';
+  selectedPart = null;
+  document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('qtyRow').style.display = 'none';
+  buildQueue();
+  beginQuiz();
+}
+
+function startKvantTest() {
+  testMode = 'kvant';
   selectedPart = null;
   document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
   document.getElementById('qtyRow').style.display = 'none';
@@ -572,6 +636,7 @@ function startFullTest() {
 }
 
 function startSession() {
+  testMode = 'single';
   buildQueue();
   beginQuiz();
 }
@@ -611,19 +676,24 @@ function buildQueue() {
   sessionQueue = [];
   correct = 0; answered = 0; questionResults = [];
 
-  if (isFullTest) {
-    for (const [type, info] of Object.entries(PART_INFO)) {
-      sessionQueue.push(...pickQuestions(type, info.testCount));
+  let counts = null;
+  if (testMode === 'full')   counts = FULL_COUNTS;
+  else if (testMode === 'verbal') counts = VERBAL_COUNTS;
+  else if (testMode === 'kvant')  counts = KVANT_COUNTS;
+
+  if (counts) {
+    for (const [type, n] of Object.entries(counts)) {
+      sessionQueue.push(...pickQuestions(type, n));
     }
     const verbal = sessionQueue.filter(q => q.section_type === 'verbal');
     const kvant  = sessionQueue.filter(q => q.section_type === 'kvant');
-    sessionQueue = [...verbal, ...kvant]; // keep section order; groups will shuffle internally
-    lastConfig = { isFullTest: true };
+    sessionQueue = [...verbal, ...kvant];
+    lastConfig = { testMode };
   } else {
     const n = Math.min(parseInt(document.getElementById('qtyInput').value)||10,
                        allQuestions.filter(q=>q.question_type===selectedPart).length);
     sessionQueue = pickQuestions(selectedPart, n);
-    lastConfig = { isFullTest: false, part: selectedPart, n };
+    lastConfig = { testMode: 'single', part: selectedPart, n };
   }
 
   sessionGroups = groupQuestions(sessionQueue);
@@ -635,7 +705,57 @@ function beginQuiz() {
   document.getElementById('mode-screen').style.display = 'none';
   document.getElementById('quiz-screen').style.display = 'block';
   document.getElementById('results-screen').style.display = 'none';
+  stopTimer();
+  if (testMode === 'full') {
+    startTimer(110 * 60); // 110 minutes
+  } else {
+    document.getElementById('timerDisplay').style.display = 'none';
+  }
   showGroup();
+}
+
+function startTimer(seconds) {
+  timerSeconds = seconds;
+  const el = document.getElementById('timerDisplay');
+  el.style.display = 'block';
+  el.className = 'timer-display';
+  renderTimer();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    if (timerSeconds <= 0) {
+      timerSeconds = 0;
+      renderTimer();
+      stopTimer();
+      showResults();
+    } else {
+      renderTimer();
+    }
+  }, 1000);
+}
+
+function renderTimer() {
+  const el = document.getElementById('timerDisplay');
+  const h = Math.floor(timerSeconds / 3600);
+  const m = Math.floor((timerSeconds % 3600) / 60);
+  const s = timerSeconds % 60;
+  const hStr = h > 0 ? h + ':' : '';
+  const mStr = h > 0 ? String(m).padStart(2,'0') : m;
+  const sStr = String(s).padStart(2,'0');
+  el.textContent = '⏱ ' + hStr + mStr + ':' + sStr;
+  if (timerSeconds <= 300) el.className = 'timer-display urgent';
+  else if (timerSeconds <= 900) el.className = 'timer-display warn';
+  else el.className = 'timer-display';
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function confirmQuit() {
+  if (confirm('Avsluta provet? Dina svar hittills sparas inte.')) {
+    stopTimer();
+    showMode();
+  }
 }
 
 // Count how many questions precede groupIdx (for progress)
@@ -912,6 +1032,7 @@ function fmtHp(score) {
 }
 
 function showResults() {
+  stopTimer();
   document.getElementById('quiz-screen').style.display = 'none';
   document.getElementById('results-screen').style.display = 'block';
 
@@ -924,31 +1045,37 @@ function showResults() {
   // Per-type tally from questionResults
   const perType = {};
   for (const type of Object.keys(PART_INFO)) perType[type] = { correct: 0, total: 0 };
-  // Count totals from sessionQueue (includes unanswered)
   for (const q of sessionQueue) perType[q.question_type].total++;
-  // Count correct from questionResults
   for (const r of questionResults) if (r.isRight) perType[r.type].correct++;
 
   const bd = document.getElementById('breakdown');
   const typesUsed = Object.keys(PART_INFO).filter(t => perType[t].total > 0);
 
-  // HP betyg for full test
-  if (isFullTest) {
-    const vTypes = ['ORD','MEK','LAS'];
-    const kTypes = ['XYZ','KVA','NOG','DTK'];
-    const vCorrect = vTypes.reduce((s,t) => s + perType[t].correct, 0);
-    const vTotal   = vTypes.reduce((s,t) => s + perType[t].total,   0);
-    const kCorrect = kTypes.reduce((s,t) => s + perType[t].correct, 0);
-    const kTotal   = kTypes.reduce((s,t) => s + perType[t].total,   0);
-    const vScore = toHpScore(vCorrect, vTotal);
-    const kScore = toHpScore(kCorrect, kTotal);
-    const totScore = toHpScore(vCorrect + kCorrect, vTotal + kTotal);
+  const barRows = typesUsed.map(t => {
+    const { correct: c, total: tot } = perType[t];
+    const p = tot ? Math.round(c/tot*100) : 0;
+    return `<div class="breakdown-row">
+      <span class="bd-type">${t}</span>
+      <div class="bd-bar-wrap"><div class="bd-bar" style="width:${p}%"></div></div>
+      <span class="bd-score">${c}/${tot}</span>
+    </div>`;
+  }).join('');
 
+  const vTypes = ['ORD','MEK','LAS','ELF'];
+  const kTypes = ['XYZ','KVA','NOG','DTK'];
+  const vCorrect = vTypes.reduce((s,t) => s + perType[t].correct, 0);
+  const vTotal   = vTypes.reduce((s,t) => s + perType[t].total,   0);
+  const kCorrect = kTypes.reduce((s,t) => s + perType[t].correct, 0);
+  const kTotal   = kTypes.reduce((s,t) => s + perType[t].total,   0);
+
+  if (testMode === 'full') {
+    const vScore   = toHpScore(vCorrect, vTotal);
+    const kScore   = toHpScore(kCorrect, kTotal);
+    const totScore = toHpScore(vCorrect + kCorrect, vTotal + kTotal);
     document.getElementById('scorePct').textContent = fmtHp(totScore);
     document.getElementById('scoreCircleLabel').textContent = 'HP-betyg';
     document.getElementById('scoreDetail').textContent = `Skala 0–2  ·  ${correct} av ${total} rätt`;
-
-    const hpBox = `
+    bd.innerHTML = `
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;text-align:center;">
         <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;">
           <div style="font-size:1.6rem;font-weight:800;color:var(--accent)">${fmtHp(vScore)}</div>
@@ -968,34 +1095,36 @@ function showResults() {
       </div>
       <p style="font-size:0.75rem;color:var(--muted);margin-bottom:20px;text-align:center;">
         Betyget är en uppskattning baserad på linjär skalning (0–2). Officiellt HP-betyg kan skilja sig något.
+      </p>
+      <h3 class="breakdown-h3">Per delprov</h3>${barRows}`;
+
+  } else if (testMode === 'verbal') {
+    const vScore = toHpScore(vCorrect, vTotal);
+    document.getElementById('scorePct').textContent = fmtHp(vScore);
+    document.getElementById('scoreCircleLabel').textContent = 'Verbal HP';
+    document.getElementById('scoreDetail').textContent = `Skala 0–2  ·  ${correct} av ${total} rätt`;
+    bd.innerHTML = `<h3 class="breakdown-h3">Per delprov</h3>${barRows}
+      <p style="font-size:0.75rem;color:var(--muted);margin-top:16px;">
+        Betyget är en uppskattning baserad på linjär skalning (0–2).
       </p>`;
 
-    bd.innerHTML = hpBox + '<h3>Per delprov</h3>' + typesUsed.map(t => {
-      const { correct: c, total: tot } = perType[t];
-      const pct = tot ? Math.round(c/tot*100) : 0;
-      return `<div class="breakdown-row">
-        <span class="bd-type">${t}</span>
-        <div class="bd-bar-wrap"><div class="bd-bar" style="width:${pct}%"></div></div>
-        <span class="bd-score">${c}/${tot}</span>
-      </div>`;
-    }).join('');
+  } else if (testMode === 'kvant') {
+    const kScore = toHpScore(kCorrect, kTotal);
+    document.getElementById('scorePct').textContent = fmtHp(kScore);
+    document.getElementById('scoreCircleLabel').textContent = 'Kvant HP';
+    document.getElementById('scoreDetail').textContent = `Skala 0–2  ·  ${correct} av ${total} rätt`;
+    bd.innerHTML = `<h3 class="breakdown-h3">Per delprov</h3>${barRows}
+      <p style="font-size:0.75rem;color:var(--muted);margin-top:16px;">
+        Betyget är en uppskattning baserad på linjär skalning (0–2).
+      </p>`;
+
   } else {
-    // Single section — just show per-type bar
-    bd.innerHTML = typesUsed.length > 1
-      ? '<h3>Per delprov</h3>' + typesUsed.map(t => {
-          const { correct: c, total: tot } = perType[t];
-          const pct = tot ? Math.round(c/tot*100) : 0;
-          return `<div class="breakdown-row">
-            <span class="bd-type">${t}</span>
-            <div class="bd-bar-wrap"><div class="bd-bar" style="width:${pct}%"></div></div>
-            <span class="bd-score">${c}/${tot}</span>
-          </div>`;
-        }).join('')
-      : '';
+    bd.innerHTML = typesUsed.length > 1 ? `<h3 class="breakdown-h3">Per delprov</h3>${barRows}` : '';
   }
 }
 
 function showMode() {
+  stopTimer();
   hideAllScreens();
   document.getElementById('mode-screen').style.display = 'block';
   updateSeenInfo();
@@ -1003,14 +1132,14 @@ function showMode() {
 
 function restartSame() {
   if (!lastConfig) { showMode(); return; }
-  if (lastConfig.isFullTest) {
-    isFullTest = true; selectedPart = null;
-    buildQueue(); beginQuiz();
-  } else {
-    isFullTest = false; selectedPart = lastConfig.part;
+  testMode = lastConfig.testMode;
+  if (testMode === 'single') {
+    selectedPart = lastConfig.part;
     document.getElementById('qtyInput').value = lastConfig.n;
-    buildQueue(); beginQuiz();
+  } else {
+    selectedPart = null;
   }
+  buildQueue(); beginQuiz();
 }
 
 async function loadPassage(filename) {
