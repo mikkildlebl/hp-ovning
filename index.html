@@ -681,11 +681,45 @@ function startSession() {
 }
 
 // Pick unseen questions first; fall back to seen ones if not enough.
+// For passage-based types (LAS, ELF), pick COMPLETE passage groups so no passage is shown partially.
 function pickQuestions(type, n) {
+  const passageTypes = new Set(['LAS', 'ELF']);
+
+  if (passageTypes.has(type)) {
+    return pickByPassageGroups(type, n);
+  }
+
   const unseen = shuffle(allQuestions.filter(q => q.question_type === type && !seenIds.has(q.id)));
   if (unseen.length >= n) return unseen.slice(0, n);
   const seen = shuffle(allQuestions.filter(q => q.question_type === type && seenIds.has(q.id)));
   return [...unseen, ...seen].slice(0, n);
+}
+
+// Group all questions of a type by passage_file, shuffle groups,
+// then select complete groups until we reach (or just exceed) n questions.
+function pickByPassageGroups(type, n) {
+  const all = allQuestions.filter(q => q.question_type === type);
+
+  // Build map: passage_file -> [questions]
+  const groupMap = {};
+  for (const q of all) {
+    const key = q.passage_file || q.id; // fallback: singleton group
+    if (!groupMap[key]) groupMap[key] = [];
+    groupMap[key].push(q);
+  }
+
+  // Split groups into unseen-first vs all-seen
+  const groups = Object.values(groupMap);
+  const unseenGroups = shuffle(groups.filter(g => g.some(q => !seenIds.has(q.id))));
+  const seenGroups   = shuffle(groups.filter(g => g.every(q => seenIds.has(q.id))));
+  const ordered = [...unseenGroups, ...seenGroups];
+
+  const result = [];
+  for (const g of ordered) {
+    if (result.length >= n) break;
+    result.push(...g);
+  }
+  return result;
 }
 
 // Group questions by shared media key (passage_file for LAS, diagram_image for DTK)
