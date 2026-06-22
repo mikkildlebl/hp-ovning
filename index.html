@@ -240,6 +240,17 @@
   .filter-chip { padding: 6px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 99px; font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: all 0.15s; }
   .filter-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
+  /* ── Provpass panel ── */
+  .pp-type-btn {
+    background: var(--surface); border: 2px solid var(--border); border-radius: 10px;
+    padding: 12px 8px; cursor: pointer; color: var(--text); font-size: 0.9rem; font-weight: 700;
+    display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.15s;
+  }
+  .pp-type-btn:hover { border-color: var(--accent); }
+  .pp-type-btn.selected { border-color: var(--accent); background: var(--surface2); color: var(--accent); }
+  .pp-sub { font-size: 0.72rem; font-weight: 400; color: var(--muted); }
+  .pp-type-btn.selected .pp-sub { color: var(--accent); opacity: 0.8; }
+
   /* ── Timer toggle ── */
   .timer-toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
   .timer-toggle-row label { font-size: 0.88rem; color: var(--muted); cursor: pointer; user-select: none; }
@@ -314,32 +325,38 @@
       <button onclick="logout()">Logga ut</button>
     </div>
     <div class="card">
-      <div style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:12px">
-        <div class="full-test-btn" id="fullTestBtn" style="cursor:pointer;margin-bottom:0">
-          Fullständigt provpass
-          <span class="sub">10 ORD · 10 MEK · 12 LAS · 8 ELF · 12 XYZ · 10 KVA · 6 NOG · 12 DTK = 80 frågor · ⏱ 110 min</span>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:16px">
+        <div class="full-test-btn" id="provpassBtn" onclick="toggleProvpassPanel()" style="cursor:pointer;margin-bottom:0">
+          Simulerat provpass
+          <span class="sub" id="provpassBtnSub">Välj typ och starta →</span>
         </div>
         <button onclick="showPrefixScreen()" style="background:var(--surface2);border:2px solid var(--border);border-radius:10px;padding:18px 16px;cursor:pointer;color:var(--text);font-size:0.85rem;font-weight:700;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
           🔤 Prefix &<br>Suffix
         </button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-        <div class="full-test-btn" id="verbalTestBtn" style="cursor:pointer;margin-bottom:0;background:var(--surface2);color:var(--text);border:2px solid var(--border)">
-          Verbal provpass
-          <span class="sub" style="color:var(--muted)">10 ORD · 10 MEK · 12 LAS · 8 ELF = 40 frågor</span>
-        </div>
-        <div class="full-test-btn" id="kvantTestBtn" style="cursor:pointer;margin-bottom:0;background:var(--surface2);color:var(--text);border:2px solid var(--border)">
-          Kvantitativt provpass
-          <span class="sub" style="color:var(--muted)">12 XYZ · 10 KVA · 6 NOG · 12 DTK = 40 frågor</span>
-        </div>
-      </div>
 
-      <div class="timer-toggle-row">
-        <label class="toggle-switch">
-          <input type="checkbox" id="timerToggle" checked>
-          <span class="toggle-knob"></span>
-        </label>
-        <label for="timerToggle">⏱ Tidsgräns (fullständigt 110 min · verbal/kvant 55 min)</label>
+      <!-- Provpass panel -->
+      <div id="provpassPanel" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;">
+        <p class="section-label" style="margin-bottom:12px">Välj typ</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
+          <button class="pp-type-btn selected" id="ppFull"   onclick="selectProvpassType('full')">
+            Fullständigt<span class="pp-sub">80 frågor · 110 min</span>
+          </button>
+          <button class="pp-type-btn" id="ppVerbal" onclick="selectProvpassType('verbal')">
+            Verbal<span class="pp-sub">40 frågor · 55 min</span>
+          </button>
+          <button class="pp-type-btn" id="ppKvant"  onclick="selectProvpassType('kvant')">
+            Kvantitativt<span class="pp-sub">40 frågor · 55 min</span>
+          </button>
+        </div>
+        <div class="timer-toggle-row" style="margin-bottom:16px">
+          <label class="toggle-switch">
+            <input type="checkbox" id="timerToggle" checked>
+            <span class="toggle-knob"></span>
+          </label>
+          <label for="timerToggle" style="font-size:0.88rem;color:var(--muted);cursor:pointer">⏱ Tidsgräns</label>
+        </div>
+        <button class="start-btn" id="provpassStartBtn" onclick="startProvpass()">Starta provpass</button>
       </div>
 
       <p class="section-label">Eller välj enskilda delprover</p>
@@ -609,9 +626,6 @@ function buildModeScreen() {
     grid.appendChild(btn);
   }
 
-  document.getElementById('fullTestBtn').addEventListener('click', startFullTest);
-  document.getElementById('verbalTestBtn').addEventListener('click', startVerbalTest);
-  document.getElementById('kvantTestBtn').addEventListener('click', startKvantTest);
   document.getElementById('startBtn').addEventListener('click', startSession);
 }
 
@@ -632,29 +646,30 @@ function selectPart(type, btn) {
   updateSeenInfo();
 }
 
-function startFullTest() {
-  testMode = 'full';
-  selectedPart = null;
-  document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('qtyRow').style.display = 'none';
-  buildQueue();
-  beginQuiz();
+let selectedProvpassType = 'full';
+
+function toggleProvpassPanel() {
+  const panel = document.getElementById('provpassPanel');
+  const isOpen = panel.style.display !== 'none';
+  panel.style.display = isOpen ? 'none' : 'block';
+  document.getElementById('provpassBtnSub').textContent = isOpen ? 'Välj typ och starta →' : 'Stäng ▲';
 }
 
-function startVerbalTest() {
-  testMode = 'verbal';
-  selectedPart = null;
-  document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('qtyRow').style.display = 'none';
-  buildQueue();
-  beginQuiz();
+function selectProvpassType(type) {
+  selectedProvpassType = type;
+  ['full','verbal','kvant'].forEach(t => {
+    document.getElementById('pp' + t.charAt(0).toUpperCase() + t.slice(1))
+      .classList.toggle('selected', t === type);
+  });
 }
 
-function startKvantTest() {
-  testMode = 'kvant';
+function startProvpass() {
+  testMode = selectedProvpassType;
   selectedPart = null;
   document.querySelectorAll('.part-btn').forEach(b => b.classList.remove('selected'));
   document.getElementById('qtyRow').style.display = 'none';
+  document.getElementById('provpassPanel').style.display = 'none';
+  document.getElementById('provpassBtnSub').textContent = 'Välj typ och starta →';
   buildQueue();
   beginQuiz();
 }
