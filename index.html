@@ -111,8 +111,9 @@
     background: var(--surface2); border-left: 3px solid var(--accent);
     border-radius: 0 8px 8px 0; padding: 16px 18px; margin-bottom: 20px;
     font-size: 0.88rem; line-height: 1.7; color: #c8cae0;
-    white-space: pre-wrap;
   }
+  .passage-box p { margin: 0 0 0.8em; }
+  .passage-box p:last-child { margin-bottom: 0; }
   .diagram-box { margin-bottom: 20px; text-align: center; }
   .diagram-box img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); }
   .media-missing { background: var(--surface2); border: 1px dashed var(--border); border-radius: 8px; padding: 14px; font-size: 0.83rem; color: var(--muted); margin-bottom: 20px; }
@@ -926,7 +927,14 @@ async function showGroup() {
     if (txt) {
       const box = document.createElement('div');
       box.className = 'passage-box';
-      box.textContent = txt;
+      // Split into paragraphs: sentence-ending period followed by capital letter
+      const paras = txt.replace(/([.!?])\s+(?=[A-ZÅÄÖ"»–])/g, '$1\n\n').split('\n\n');
+      paras.forEach(p => {
+        if (!p.trim()) return;
+        const el = document.createElement('p');
+        el.textContent = p.trim();
+        box.appendChild(el);
+      });
       passageArea.appendChild(box);
     } else {
       passageArea.innerHTML = `<div class="media-missing">📄 Läspassage ej tillgänglig (${group.mediaKey})</div>`;
