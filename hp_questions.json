@@ -1,5 +1,5 @@
 {
-  "total_questions": 3387,
+  "total_questions": 3354,
   "generated": "2026-06-20",
   "notes": {
     "passage_file": "LAS/ELF reading passage saved in texts/ folder",
@@ -10847,31 +10847,6 @@
       "variant": null,
       "section_type": "verbal",
       "question_type": "LAS",
-      "question_number": 14,
-      "question_text": "Vilket av Elektrikerförbundets argument hade AD inga invändningar mot?",
-      "options": [
-        "A) Argumentet att företaget inte hade något behov",
-        "B) Argumentet att praktik måste räknas som arbete",
-        "C) Argumentet att den typ av arbetsuppgifter som",
-        "D) Argumentet att praktikanten borde ha anställts"
-      ],
-      "correct_answer": "C",
-      "id": "23fecf48be53",
-      "all_sources": [
-        {
-          "exam": "2015-03-28",
-          "provpass": 3,
-          "variant": null
-        }
-      ],
-      "passage_file": "8601436df97ed766.txt"
-    },
-    {
-      "source_exam": "2015-03-28",
-      "provpass": 3,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
       "question_number": 15,
       "question_text": "Vilken samlad effekt av förändringarna i den svenska skolan lyfter textförfattaren särskilt fram?",
       "options": [
@@ -10890,31 +10865,6 @@
         }
       ],
       "passage_file": "ca7600cd22c7197b.txt"
-    },
-    {
-      "source_exam": "2015-03-28",
-      "provpass": 3,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 16,
-      "question_text": "Vad menar textförfattaren med att lärar­ na förts ”bort från relevans och samman­ hang”?",
-      "options": [
-        "A) Att de påtvingats uppgifter som mot bakgrund",
-        "B) Att det ständiga kravet på dokumentation",
-        "C) Att de haft alldeles för mycket att göra för att",
-        "D) Att friskolornas starka konkurrenskraft har"
-      ],
-      "correct_answer": "A",
-      "id": "8c2cf9721bea",
-      "all_sources": [
-        {
-          "exam": "2015-03-28",
-          "provpass": 3,
-          "variant": null
-        }
-      ],
-      "passage_file": "81783e3c5b5d799a.txt"
     },
     {
       "source_exam": "2015-03-28",
@@ -32571,56 +32521,6 @@
       "provpass": 3,
       "variant": null,
       "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 19,
-      "question_text": "Vad ser textförfattaren som ett grund- problem när påföljden för mord ska be- stämmas?",
-      "options": [
-        "A) Variationen i straffskalan för mord är för liten",
-        "B) Bestämningen av påföljd sker genom att mord",
-        "C) Bristen på alternativ till den gamla straffskalan",
-        "D) Domstolarna bortser från den dömdes chans till"
-      ],
-      "correct_answer": "A",
-      "id": "e0efd5efd81c",
-      "all_sources": [
-        {
-          "exam": "2018-10-21",
-          "provpass": 3,
-          "variant": null
-        }
-      ],
-      "passage_file": "8599e3ee820ce871.txt"
-    },
-    {
-      "source_exam": "2018-10-21",
-      "provpass": 3,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 20,
-      "question_text": "Hur kunde påföljden internering fungera fram till 1980, av texten att döma?",
-      "options": [
-        "A) Som en tillfällig nödlösning.",
-        "B) Som ett längre livstidsstraff.",
-        "C) Som en praktisk medelväg.",
-        "D) Som ett alternativ till behandling."
-      ],
-      "correct_answer": "C",
-      "id": "893c38f79dca",
-      "all_sources": [
-        {
-          "exam": "2018-10-21",
-          "provpass": 3,
-          "variant": null
-        }
-      ],
-      "passage_file": "8599e3ee820ce871.txt"
-    },
-    {
-      "source_exam": "2018-10-21",
-      "provpass": 3,
-      "variant": null,
-      "section_type": "verbal",
       "question_type": "MEK",
       "question_number": 21,
       "question_text": "I skafferiet stod också separatorn, som separerade och skummjölk. Av grädden ____ man smör, oskummad sötmjölk, berättar Maj-Len, född",
@@ -34892,131 +34792,6 @@
       "provpass": 1,
       "variant": null,
       "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 16,
-      "question_text": "Vilket av följande påståenden överensstämmer bäst­med­det­Berit­Hasselmark­skriver?",
-      "options": [
-        "A) Holländska och belgiska läkares misstänksamhet",
-        "B) Läkares rädsla för döden gör dem ovilliga att",
-        "C) Svenska läkares motstånd mot självvalt livsslut",
-        "D) Läkares förhållandevis höga yrkesmoral gör dem"
-      ],
-      "correct_answer": "B",
-      "id": "22cb6c3b7ccb",
-      "all_sources": [
-        {
-          "exam": "2019-04-06",
-          "provpass": 1,
-          "variant": null
-        }
-      ],
-      "passage_file": "db65a7df35a4bc33.txt"
-    },
-    {
-      "source_exam": "2019-04-06",
-      "provpass": 1,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 17,
-      "question_text": "Vad menar textförfattaren är grundproblemet med hur skolans styrdokument beskriver demokrati?",
-      "options": [
-        "A) Demokrati framställs som något självklart.",
-        "B) Beskrivningen av demokrati är för svävande och",
-        "C) Eleverna förutsätts ha en redan färdig definition",
-        "D) Den bild av demokrati som ges överensstämmer"
-      ],
-      "correct_answer": "D",
-      "id": "55a9c7b3cb71",
-      "all_sources": [
-        {
-          "exam": "2019-04-06",
-          "provpass": 1,
-          "variant": null
-        }
-      ],
-      "passage_file": "887355acd033d2f5.txt"
-    },
-    {
-      "source_exam": "2019-04-06",
-      "provpass": 1,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 18,
-      "question_text": "Vilket av följande exempel beskriver bäst det som textförfattaren kallar ”arbete i formella strukturer”?",
-      "options": [
-        "A) Att delta i en politisk demonstration.",
-        "B) Att företräda en fackförening på sin arbetsplats.",
-        "C) Att bli medlem i en ideell förening.",
-        "D) Att skriva debattartiklar i lokaltidningen."
-      ],
-      "correct_answer": "B",
-      "id": "2b1468eb8333",
-      "all_sources": [
-        {
-          "exam": "2019-04-06",
-          "provpass": 1,
-          "variant": null
-        }
-      ],
-      "passage_file": "887355acd033d2f5.txt"
-    },
-    {
-      "source_exam": "2019-04-06",
-      "provpass": 1,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 19,
-      "question_text": "Skolans förutsättningar att träna elever i demo- kratiska arbetsformer är, enligt textförfattaren, ­delvis begränsade. Varför?",
-      "options": [
-        "A) Forskning visar att allt färre uppfattar skolans",
-        "B) Skolan ställer alltför höga krav på förmågan att",
-        "C) Eleverna saknar faktisk makt över verksamheten",
-        "D) Skolmiljön ger för litet utrymme åt eleverna som"
-      ],
-      "correct_answer": "C",
-      "id": "3d92cd0c5941",
-      "all_sources": [
-        {
-          "exam": "2019-04-06",
-          "provpass": 1,
-          "variant": null
-        }
-      ],
-      "passage_file": "887355acd033d2f5.txt"
-    },
-    {
-      "source_exam": "2019-04-06",
-      "provpass": 1,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 20,
-      "question_text": "Vad riskerar dagens elever att få för lite övning i, ­ enligt textförfattaren?",
-      "options": [
-        "A) Att nå en lösning trots att inte alla inblandade är",
-        "B) Att fatta beslut som inte leder till motsättningar.",
-        "C) Att lyssna på alla inblandade och ge plats åt deras",
-        "D) Att föra fram sin åsikt i ett större sammanhang."
-      ],
-      "correct_answer": "A",
-      "id": "5a84892eb99c",
-      "all_sources": [
-        {
-          "exam": "2019-04-06",
-          "provpass": 1,
-          "variant": null
-        }
-      ],
-      "passage_file": "887355acd033d2f5.txt"
-    },
-    {
-      "source_exam": "2019-04-06",
-      "provpass": 1,
-      "variant": null,
-      "section_type": "verbal",
       "question_type": "MEK",
       "question_number": 21,
       "question_text": "Varje nytt gruvprojekt måste _____ av Mark- och miljödomstolen utifrån konsekvenserna för miljön. Nyligen stoppades brytningen i LKAB:s senaste järnmalmsgruva i Svappavaara efter att Naturvårdsverket överklagat Mark- och miljödomstolens beslut att ge tillstånd till malmbrytning.",
@@ -36547,56 +36322,6 @@
         }
       ],
       "passage_file": "16e6f08d8af65df0.txt"
-    },
-    {
-      "source_exam": "2019-04-06",
-      "provpass": 4,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 19,
-      "question_text": "Vilket svarsförslag anger ett av de forsknings- resultat som recensenten hittar i antologins andra del?",
-      "options": [
-        "A) Att utvecklingen mot jämställdhet har tagit av-",
-        "B) Att införandet av kvinnlig rösträtt påverkade",
-        "C) Att jämställdheten först blev lagstadgad inom",
-        "D) Att rösträtten blev åtkomlig för kvinnor tack"
-      ],
-      "correct_answer": "A",
-      "id": "7cbec1a8c0fe",
-      "all_sources": [
-        {
-          "exam": "2019-04-06",
-          "provpass": 4,
-          "variant": null
-        }
-      ],
-      "passage_file": "a2eaae06ad568d52.txt"
-    },
-    {
-      "source_exam": "2019-04-06",
-      "provpass": 4,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 20,
-      "question_text": "Vad skiljer antologins tredje del från den första och den andra, enligt texten?",
-      "options": [
-        "A) Kapitlen saknar ett samlande teoretiskt tema.",
-        "B) Jämförelser sker inte geografiskt utan över tid.",
-        "C) Innehållet avser inte någon särskilt angiven",
-        "D) Perspektivet vidgas till att inte enbart omfatta"
-      ],
-      "correct_answer": "D",
-      "id": "5b065b48ee0b",
-      "all_sources": [
-        {
-          "exam": "2019-04-06",
-          "provpass": 4,
-          "variant": null
-        }
-      ],
-      "passage_file": "a2eaae06ad568d52.txt"
     },
     {
       "source_exam": "2019-04-06",
@@ -41341,31 +41066,6 @@
       "variant": null,
       "section_type": "verbal",
       "question_type": "LAS",
-      "question_number": 12,
-      "question_text": "Enligt texten avvisade HFD vissa av ansökning- arna om rättsprövning av fattade regerings­ beslut. Varför?",
-      "options": [
-        "A) Det fanns ingen anledning att kritisera reger-",
-        "B) HFD var inte rätt myndighet att pröva beslut",
-        "C) Personerna bakom ansökningarna berördes inte",
-        "D) Ansökningarna hade så nära anknytning till"
-      ],
-      "correct_answer": "C",
-      "id": "42d7888fcd95",
-      "all_sources": [
-        {
-          "exam": "2019-10-20",
-          "provpass": 5,
-          "variant": null
-        }
-      ],
-      "passage_file": "4de45540f56dd3ba.txt"
-    },
-    {
-      "source_exam": "2019-10-20",
-      "provpass": 5,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
       "question_number": 13,
       "question_text": "Deltamuskeln är mycket användbar i det sam­ manhang som texten beskriver, delvis tack vare sina långa fibrer. Varför är fiberlängden så viktig, enligt texten?",
       "options": [
@@ -42274,31 +41974,6 @@
         }
       ],
       "passage_file": "35ed1e630ad05475.txt"
-    },
-    {
-      "source_exam": "2020-10-25",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 20,
-      "question_text": "Vilken av följande meningar är mest rimlig som fortsättning på textens nuvarande avslutning?",
-      "options": [
-        "A) Kanske är det så att ju mer hat och avsky man",
-        "B) Kanske är det så att ju mer hat och avsky man",
-        "C) Kanske är det så att ju mer kärlek och gillande",
-        "D) Kanske är det så att ju mer kärlek och gillande"
-      ],
-      "correct_answer": "C",
-      "id": "2754e6f7b6df",
-      "all_sources": [
-        {
-          "exam": "2020-10-25",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "23e40d614a88614b.txt"
     },
     {
       "source_exam": "2020-10-25",
@@ -49853,106 +49528,6 @@
       "variant": null,
       "section_type": "verbal",
       "question_type": "LAS",
-      "question_number": 13,
-      "question_text": "Vad är det framför allt, enligt textförfattaren, som gör att den rika delen av världens befolk- ning har svårt att uppfatta de negativa följd­ erna av sin livsstil?",
-      "options": [
-        "A) Det faktum att produktion är energikrävande",
-        "B) Det faktum att produktion och konsumtion i hög",
-        "C) Det faktum att produktionen i hög grad är",
-        "D) Det faktum att produktionen utförs av maskiner"
-      ],
-      "correct_answer": "B",
-      "id": "980ab099e5bd",
-      "all_sources": [
-        {
-          "exam": "2021-05-08",
-          "provpass": 4,
-          "variant": null
-        }
-      ],
-      "passage_file": "98baf76465db54b5.txt"
-    },
-    {
-      "source_exam": "2021-05-08",
-      "provpass": 4,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 14,
-      "question_text": "Textförfattaren anser att slaveriet fortfarande finns kvar trots att det officiellt är avskaffat. Vad syftar han ytterst på?",
-      "options": [
-        "A) Att de produkter som har ersatt slavarna till­",
-        "B) Att slaveri förekommer på platser som väst­",
-        "C) Att den teknik som rika länder konsumerar kan",
-        "D) Att 1700-talets slaverisystem trots allt utgör"
-      ],
-      "correct_answer": "A",
-      "id": "8d19380fe2e2",
-      "all_sources": [
-        {
-          "exam": "2021-05-08",
-          "provpass": 4,
-          "variant": null
-        }
-      ],
-      "passage_file": "98baf76465db54b5.txt"
-    },
-    {
-      "source_exam": "2021-05-08",
-      "provpass": 4,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 15,
-      "question_text": "Vad får textförfattaren sagt beträffande be- greppen ”tekniska framsteg” och ”hållbar ut- veckling”?",
-      "options": [
-        "A) Att de är förutsättningar för ett rättvisare",
-        "B) Att de är viktiga aspekter av arbetet med nya",
-        "C) Att deras positiva laddning fungerar vilse­",
-        "D) Att deras betydelse är densamma över hela"
-      ],
-      "correct_answer": "C",
-      "id": "dc236a7a3d11",
-      "all_sources": [
-        {
-          "exam": "2021-05-08",
-          "provpass": 4,
-          "variant": null
-        }
-      ],
-      "passage_file": "98baf76465db54b5.txt"
-    },
-    {
-      "source_exam": "2021-05-08",
-      "provpass": 4,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 16,
-      "question_text": "Vad är det textförfattaren gör i sin artikel?",
-      "options": [
-        "A) Driver en egen tes.",
-        "B) Presenterar nya historiska fakta.",
-        "C) Redovisar ett aktuellt forskningsläge.",
-        "D) Argumenterar för en ny världsordning."
-      ],
-      "correct_answer": "A",
-      "id": "149ccf95843b",
-      "all_sources": [
-        {
-          "exam": "2021-05-08",
-          "provpass": 4,
-          "variant": null
-        }
-      ],
-      "passage_file": "98baf76465db54b5.txt"
-    },
-    {
-      "source_exam": "2021-05-08",
-      "provpass": 4,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
       "question_number": 17,
       "question_text": "Vad vill textförfattaren exemplifiera när han nämner planschen om korkmakaren?",
       "options": [
@@ -52216,31 +51791,6 @@
       "variant": null,
       "section_type": "verbal",
       "question_type": "LAS",
-      "question_number": 15,
-      "question_text": "Vilket av följande till synes motsägelsefulla förhållanden nämns i texten?",
-      "options": [
-        "A) Att läkare trots sina yrkeskunskaper har svårt",
-        "B) Att läkare trots en sundare livsstil drabbas av",
-        "C) Att det främst är kvinnliga läkare som sjukskrivs,",
-        "D) Att läkare överlag anser att deras yrke förutsätter"
-      ],
-      "correct_answer": "A",
-      "id": "4b2fadfc0ac3",
-      "all_sources": [
-        {
-          "exam": "2021-10-24",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "d451edc444330564.txt"
-    },
-    {
-      "source_exam": "2021-10-24",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
       "question_number": 16,
       "question_text": "Vilken av följande alternativa rubriker har mest stöd i texten?",
       "options": [
@@ -52284,81 +51834,6 @@
         }
       ],
       "passage_file": "f5ef9285b81ffc75.txt"
-    },
-    {
-      "source_exam": "2021-10-24",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 18,
-      "question_text": "Vad sägs i texten om litterära verk som utmärks av crosswriting?",
-      "options": [
-        "A) De löper risken att inte klassificeras som vare sig",
-        "B) De har goda förutsättningar att leva upp till de",
-        "C) De är skrivna av utpräglade vuxenboksförfattare",
-        "D) De är estetiskt sett lika värdefulla som vuxen-"
-      ],
-      "correct_answer": "B",
-      "id": "9edd8d4ea447",
-      "all_sources": [
-        {
-          "exam": "2021-10-24",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "66ffdabf935fa6e2.txt"
-    },
-    {
-      "source_exam": "2021-10-24",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 19,
-      "question_text": "Boken Kinderliteratur har den tyska barnlitte- raturen som utgångspunkt. Hur kommenterar bokens författare detta, enligt texten?",
-      "options": [
-        "A) Hon poängterar att utvecklingen i Tyskland väl",
-        "B) Hon hävdar att den tyska situationen visserligen",
-        "C) Hon anser att den tyska kanon som redan existe-",
-        "D) Hon framhåller att Tyskland är ett land bland"
-      ],
-      "correct_answer": "D",
-      "id": "78028920761e",
-      "all_sources": [
-        {
-          "exam": "2021-10-24",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "66ffdabf935fa6e2.txt"
-    },
-    {
-      "source_exam": "2021-10-24",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 20,
-      "question_text": "Vilka barnböcker är det i första hand som bör betecknas som klassiker, enligt Bettina Küm- merling-Meibauer?",
-      "options": [
-        "A) De som är mest originella.",
-        "B) De som har påverkat genrens utveckling.",
-        "C) De som har ett pedagogiskt syfte.",
-        "D) De som har fått internationell spridning."
-      ],
-      "correct_answer": "B",
-      "id": "24b4e0b2efb9",
-      "all_sources": [
-        {
-          "exam": "2021-10-24",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "66ffdabf935fa6e2.txt"
     },
     {
       "source_exam": "2021-10-24",
@@ -54536,106 +54011,6 @@
       "variant": null,
       "section_type": "verbal",
       "question_type": "LAS",
-      "question_number": 13,
-      "question_text": "Vad av följande nämns i texten som argument för att kunskapen om heterotrofa bakteriers svälttillstånd är viktig?",
-      "options": [
-        "A) Bakteriers motståndskraft kan komma till",
-        "B) Bakteriers reaktioner kan ge kunskap om hur",
-        "C) Bakterier kan utnyttjas för att rena vatten i olika",
-        "D) Bakterier kan visa sig överleva behandlingar som"
-      ],
-      "correct_answer": "D",
-      "id": "d4ec5c41019a",
-      "all_sources": [
-        {
-          "exam": "2022-03-12",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "f6ad099aeedcd232.txt"
-    },
-    {
-      "source_exam": "2022-03-12",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 14,
-      "question_text": "Vad har forskningen visat när det gäller anta­ gandet att man kan dela upp icke-differentie­ rande bakterier i olika kategorier?",
-      "options": [
-        "A) Att uppdelningen är för odetaljerad.",
-        "B) Att antagandet är korrekt.",
-        "C) Att uppdelningen är omotiverad.",
-        "D) Att antagandet sannolikt stämmer, men att fler"
-      ],
-      "correct_answer": "C",
-      "id": "3890e0303c2c",
-      "all_sources": [
-        {
-          "exam": "2022-03-12",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "f6ad099aeedcd232.txt"
-    },
-    {
-      "source_exam": "2022-03-12",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 15,
-      "question_text": "Vilken ny insikt blev enligt texten ett viktigt steg för den fortsatta forskningen kring cellers överlevnad?",
-      "options": [
-        "A) Att näringsbrist kan göra bakterier mer stress­",
-        "B) Att svält egentligen bör ses som sekundär stress.",
-        "C) Att bakteriers reaktion på näringsbrist kan delas",
-        "D) Att svält kan leda till att bakterier blir mer aktiva."
-      ],
-      "correct_answer": "A",
-      "id": "d33dbb320a9a",
-      "all_sources": [
-        {
-          "exam": "2022-03-12",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "f6ad099aeedcd232.txt"
-    },
-    {
-      "source_exam": "2022-03-12",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 16,
-      "question_text": "Vilken av följande rubriker sammanfattar bäst vad texten handlar om?",
-      "options": [
-        "A) Svält – naturligt tillstånd hos bakterier",
-        "B) Olika bakterier, samma överlevnadsstrategi",
-        "C) Organiskt kol avgörande för bakteriens liv",
-        "D) Så hanterar bakterier näringsbrist"
-      ],
-      "correct_answer": "D",
-      "id": "07422d1a7417",
-      "all_sources": [
-        {
-          "exam": "2022-03-12",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "f6ad099aeedcd232.txt"
-    },
-    {
-      "source_exam": "2022-03-12",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
       "question_number": 17,
       "question_text": "Vad skiljer enligt texten idyllen från satiren och elegin?",
       "options": [
@@ -54654,81 +54029,6 @@
         }
       ],
       "passage_file": "3bbe76f634d6a7bb.txt"
-    },
-    {
-      "source_exam": "2022-03-12",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 18,
-      "question_text": "Vad är enligt texten förklaringen till att ”Stilla natt” får gensvar ännu i vår tid?",
-      "options": [
-        "A) Att den bär på ett löfte om förlåtelse.",
-        "B) Att den ger en känsla av lugn och trygghet.",
-        "C) Att den har ett oförklarligt budskap om frälsning.",
-        "D) Att den bejakar allmänmänskliga värden."
-      ],
-      "correct_answer": "B",
-      "id": "5d54f7aaf732",
-      "all_sources": [
-        {
-          "exam": "2022-03-12",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "91ccc97b522d9694.txt"
-    },
-    {
-      "source_exam": "2022-03-12",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 19,
-      "question_text": "Vad kan utifrån texten sägas om ”Stilla natts” spridning och popularitet?",
-      "options": [
-        "A) Sången betraktades som en psalm ända fram till",
-        "B) Trots sitt protestantiska ursprung blev sången",
-        "C) Sången kom att få störst genomslag utanför de",
-        "D) Trots sina kyrkliga rötter uppskattades sången"
-      ],
-      "correct_answer": "D",
-      "id": "3c52f623322d",
-      "all_sources": [
-        {
-          "exam": "2022-03-12",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "91ccc97b522d9694.txt"
-    },
-    {
-      "source_exam": "2022-03-12",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 20,
-      "question_text": "Hur kan Synnöve Clasons text bäst karaktär­ iseras?",
-      "options": [
-        "A) Som beskrivande och analyserande.",
-        "B) Som kåserande och underhållande.",
-        "C) Som teoretiserande och spekulerande.",
-        "D) Som granskande och ifrågasättande."
-      ],
-      "correct_answer": "A",
-      "id": "cec382952af5",
-      "all_sources": [
-        {
-          "exam": "2022-03-12",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "91ccc97b522d9694.txt"
     },
     {
       "source_exam": "2022-03-12",
@@ -76238,81 +75538,6 @@
       "variant": null,
       "section_type": "verbal",
       "question_type": "LAS",
-      "question_number": 14,
-      "question_text": "Hur resonerade Vetenskapsakademien när de satte samman psykiatrigruppen, enligt texten?",
-      "options": [
-        "A) De valde personer som skulle representera",
-        "B) De valde personer med psykiatrisk eller annan",
-        "C) De valde personer med blandad akademisk bak­",
-        "D) De valde personer utan psykiatrisk kompetens"
-      ],
-      "correct_answer": "C",
-      "id": "61de3b9dbdc0",
-      "all_sources": [
-        {
-          "exam": "2024-10-20",
-          "provpass": 5,
-          "variant": null
-        }
-      ],
-      "passage_file": "9faec3dc41b50310.txt"
-    },
-    {
-      "source_exam": "2024-10-20",
-      "provpass": 5,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 15,
-      "question_text": "Vid seminariet hävdade Karin Johannisson att psykiatrigruppens rapport försöker påverka forskningens inriktning. Vad sammanfattar bäst textförfattarens svar på det?",
-      "options": [
-        "A) Han har förståelse för kritiken, men poängterar att",
-        "B) Han ger henne delvis rätt, men menar att rappor­",
-        "C) Han bemöter egentligen inte kritiken, men an­",
-        "D) Han kommer med en invändning, men medger"
-      ],
-      "correct_answer": "D",
-      "id": "ed3a03711f46",
-      "all_sources": [
-        {
-          "exam": "2024-10-20",
-          "provpass": 5,
-          "variant": null
-        }
-      ],
-      "passage_file": "9faec3dc41b50310.txt"
-    },
-    {
-      "source_exam": "2024-10-20",
-      "provpass": 5,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 16,
-      "question_text": "Vilket antagande ligger, enligt textförfattaren, till grund för psykiatrigruppens reformprogram?",
-      "options": [
-        "A) Att all psykiatrisk vård bör utgå från ett neuro­",
-        "B) Att den psykiatriska vården är för dyr.",
-        "C) Att den psykiatriska vården har blivit sämre.",
-        "D) Att kvalificerad forskning förbättrar den psykia­"
-      ],
-      "correct_answer": "D",
-      "id": "a03d6a644995",
-      "all_sources": [
-        {
-          "exam": "2024-10-20",
-          "provpass": 5,
-          "variant": null
-        }
-      ],
-      "passage_file": "9faec3dc41b50310.txt"
-    },
-    {
-      "source_exam": "2024-10-20",
-      "provpass": 5,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
       "question_number": 17,
       "question_text": "Vad påpekar textförfattaren om den rapport­ erade läskunnigheten i 1700-talets Sverige?",
       "options": [
@@ -76946,66 +76171,6 @@
           "variant": null
         }
       ]
-    },
-    {
-      "source_exam": "2025-04-05",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 11,
-      "question_text": "Vilken alternativ rubrik sammanfattar bäst ­textens huvudpoäng?",
-      "options": [
-        "A) Kirurgi bekämpar tremor",
-        "B) Talamus målet vid tremorbehandling",
-        "C) Talamotomi på nytt sätt",
-        "D) Biverkningar av ny tremorbehandling"
-      ],
-      "correct_answer": "C",
-      "id": "b184a3506c94",
-      "all_sources": [
-        {
-          "exam": "2025-04-05",
-          "provpass": 2,
-          "variant": null
-        },
-        {
-          "exam": "unknown",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "03e6f9546f32569f.txt"
-    },
-    {
-      "source_exam": "2025-04-05",
-      "provpass": 2,
-      "variant": null,
-      "section_type": "verbal",
-      "question_type": "LAS",
-      "question_number": 12,
-      "question_text": "Vilken brist med studien ser textförfattaren?",
-      "options": [
-        "A) De noterade biverkningarna har inte utforskats",
-        "B) De skalor som ska utvärdera behandlingens",
-        "C) De patienter som ingår i studien har alltför lik­",
-        "D) De uppmätta effekterna är osäkra på grund av"
-      ],
-      "correct_answer": "D",
-      "id": "6975446e86e8",
-      "all_sources": [
-        {
-          "exam": "2025-04-05",
-          "provpass": 2,
-          "variant": null
-        },
-        {
-          "exam": "unknown",
-          "provpass": 2,
-          "variant": null
-        }
-      ],
-      "passage_file": "03e6f9546f32569f.txt"
     },
     {
       "source_exam": "2025-04-05",
