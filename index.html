@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HP Övning</title>
+<title>Högskoleprovet pro</title>
 <style>
   :root {
     --bg: #0f1117;
@@ -112,6 +112,7 @@
     border-radius: 0 8px 8px 0; padding: 16px 18px; margin-bottom: 20px;
     font-size: 0.88rem; line-height: 1.7; color: #c8cae0;
   }
+  .passage-title { font-weight: 700; font-size: 0.95rem; color: var(--accent); margin-bottom: 10px; letter-spacing: 0.02em; }
   .passage-box p { margin: 0 0 0.8em; }
   .passage-box p:last-child { margin-bottom: 0; }
   .diagram-box { margin-bottom: 20px; text-align: center; }
@@ -299,7 +300,7 @@
 <button id="theme-toggle" onclick="toggleTheme()">◐ Klassisk</button>
 <div id="app">
   <header>
-    <h1>HP <span>Övning</span></h1>
+    <h1>Högskoleprovet <span>Pro</span></h1>
     <p>Träna på Högskoleprovets delprover</p>
   </header>
 
@@ -923,18 +924,31 @@ async function showGroup() {
   passageArea.innerHTML = '';
 
   if (group.mediaType === 'passage') {
-    const txt = await loadPassage(group.mediaKey);
+    const txt = group.questions[0].passage_text || await loadPassage(group.mediaKey);
     if (txt) {
       const box = document.createElement('div');
       box.className = 'passage-box';
-      // Split into paragraphs: sentence-ending period followed by capital letter
-      const paras = txt.replace(/([.!?])\s+(?=[A-ZÅÄÖ"»–])/g, '$1\n\n').split('\n\n');
-      paras.forEach(p => {
-        if (!p.trim()) return;
+      // Fix PDF column-break hyphenation: “ord- nästa” → “ordnästa”
+      const cleaned = txt.replace(/(\w)-\s+([a-zåäö])/g, '$1$2');
+      // Extract title: short phrase (≤8 words, no sentence punctuation) before body
+      const titleMatch = cleaned.match(/^([A-ZÅÄÖ][^.!?\n]{2,64}?)\s+(?=[A-ZÅÄÖ])/);
+      const titleText = titleMatch && titleMatch[1].trim().split(/\s+/).length <= 8
+        ? titleMatch[1].trim() : null;
+      const body = titleText ? cleaned.slice(titleText.length).trim() : cleaned;
+      if (titleText) {
+        const h = document.createElement('div');
+        h.className = 'passage-title';
+        h.textContent = titleText;
+        box.appendChild(h);
+      }
+      // Split body into sentences, group 3 per paragraph
+      const sentences = body.match(/[^.!?]+[.!?»]+[“»]?/g) || [body];
+      const CHUNK = 3;
+      for (let i = 0; i < sentences.length; i += CHUNK) {
         const el = document.createElement('p');
-        el.textContent = p.trim();
+        el.textContent = sentences.slice(i, i + CHUNK).join(' ').trim();
         box.appendChild(el);
-      });
+      }
       passageArea.appendChild(box);
     } else {
       passageArea.innerHTML = `<div class="media-missing">📄 Läspassage ej tillgänglig (${group.mediaKey})</div>`;

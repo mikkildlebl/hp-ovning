@@ -1,21 +1,16 @@
-__pycache__/
+﻿__pycache__/
 *.pyc
 *.pyo
-*.db
-*.sqlite
-.env
-Gamla_HP/
-hp_images/
-hp_texts/
+
+# Large binary/media directories
 images/
-*.pdf
+hp_images/
+Gamla_HP/
+
+# Scraped debug HTML files
+eddler_raw.html
+eddler_var2023p3.html
+
+# Base64 scratch files
 b64_cropped.txt
 img_b64.txt
-quiz_data.json
-check_*.py
-debug_*.py
-diag.py
-extract_*.py
-get_b64.py
-extract_images.py
-extract_texts.py

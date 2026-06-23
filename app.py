@@ -17,7 +17,9 @@ DB_DIR.mkdir(parents=True, exist_ok=True)
 DB        = DB_DIR / "users.db"
 TEXTS_DIR = LOCAL_DIR / "texts" if (LOCAL_DIR / "texts").exists() else BASE / "texts"
 app  = Flask(__name__, static_folder=str(BASE))
-app.secret_key = secrets.token_hex(32)
+app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_SECURE'] = False
 
 # ── DB setup ─────────────────────────────────────────────────────────────────
 
@@ -177,7 +179,9 @@ def index():
 
 @app.get("/hp_questions.json")
 def questions_json():
-    return send_file(LOCAL_DIR / "hp_questions.json")
+    resp = send_file(LOCAL_DIR / "hp_questions.json")
+    resp.headers['Cache-Control'] = 'no-store'
+    return resp
 
 @app.get("/images/<path:filename>")
 def images(filename):
@@ -191,5 +195,5 @@ def texts(filename):
 
 if __name__ == "__main__":
     init_db()
-    print("HP Övning running at http://localhost:3456")
+    print("Högskoleprovet pro running at http://localhost:3456")
     app.run(port=3456, debug=False)
