@@ -1,5 +1,5 @@
 """
-HP Övning backend — Flask + SQLite
+Högskoleprovet Pro backend — Flask + SQLite (local) / PostgreSQL (production)
 Run: python app.py
 """
 import os, json, secrets, sqlite3
@@ -16,50 +16,108 @@ DB_DIR    = _local if _local else BASE
 DB_DIR.mkdir(parents=True, exist_ok=True)
 DB        = DB_DIR / "users.db"
 TEXTS_DIR = LOCAL_DIR / "texts" if (LOCAL_DIR / "texts").exists() else BASE / "texts"
-app  = Flask(__name__, static_folder=str(BASE))
+
+DATABASE_URL = os.environ.get("DATABASE_URL", "")
+USE_PG = bool(DATABASE_URL)
+
+app = Flask(__name__, static_folder=str(BASE))
 app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['SESSION_COOKIE_SECURE'] = False
+app.config['SESSION_COOKIE_SECURE'] = USE_PG  # HTTPS in production
 
-# ── DB setup ─────────────────────────────────────────────────────────────────
+# ── DB abstraction ────────────────────────────────────────────────────────────
 
-def get_db():
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
-    return conn
+if USE_PG:
+    import psycopg2
+    import psycopg2.extras
 
-def init_db():
-    with get_db() as db:
-        db.executescript("""
-        CREATE TABLE IF NOT EXISTS users (
-            id       INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT    UNIQUE NOT NULL,
-            pw_hash  TEXT    NOT NULL
-        );
-        CREATE TABLE IF NOT EXISTS seen (
-            user_id     INTEGER NOT NULL,
-            question_id TEXT    NOT NULL,
-            PRIMARY KEY (user_id, question_id),
-            FOREIGN KEY (user_id) REFERENCES users(id)
-        );
-        CREATE TABLE IF NOT EXISTS prefix_known (
-            user_id    INTEGER NOT NULL,
-            prefix_id  TEXT    NOT NULL,
-            PRIMARY KEY (user_id, prefix_id),
-            FOREIGN KEY (user_id) REFERENCES users(id)
-        );
-        """)
+    def get_db():
+        url = DATABASE_URL
+        # Render/Heroku provide postgres:// but psycopg2 needs postgresql://
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql://", 1)
+        conn = psycopg2.connect(url)
+        conn.autocommit = False
+        return conn
+
+    def db_fetchall(cur, query, params=()):
+        cur.execute(query.replace("?", "%s"), params)
+        cols = [d[0] for d in cur.description]
+        return [dict(zip(cols, row)) for row in cur.fetchall()]
+
+    def db_fetchone(cur, query, params=()):
+        cur.execute(query.replace("?", "%s"), params)
+        if cur.description is None:
+            return None
+        cols = [d[0] for d in cur.description]
+        row = cur.fetchone()
+        return dict(zip(cols, row)) if row else None
+
+    def init_db():
+        with get_db() as conn:
+            cur = conn.cursor()
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                    id       SERIAL PRIMARY KEY,
+                    username TEXT   UNIQUE NOT NULL,
+                    pw_hash  TEXT   NOT NULL
+                )
+            """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS seen (
+                    user_id     INTEGER NOT NULL,
+                    question_id TEXT    NOT NULL,
+                    PRIMARY KEY (user_id, question_id)
+                )
+            """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS prefix_known (
+                    user_id   INTEGER NOT NULL,
+                    prefix_id TEXT    NOT NULL,
+                    PRIMARY KEY (user_id, prefix_id)
+                )
+            """)
+            conn.commit()
+
+else:
+    def get_db():
+        conn = sqlite3.connect(DB)
+        conn.row_factory = sqlite3.Row
+        return conn
+
+    def db_fetchall(cur, query, params=()):
+        cur.execute(query, params)
+        return [dict(r) for r in cur.fetchall()]
+
+    def db_fetchone(cur, query, params=()):
+        cur.execute(query, params)
+        row = cur.fetchone()
+        return dict(row) if row else None
+
+    def init_db():
+        with get_db() as db:
+            db.executescript("""
+            CREATE TABLE IF NOT EXISTS users (
+                id       INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT    UNIQUE NOT NULL,
+                pw_hash  TEXT    NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS seen (
+                user_id     INTEGER NOT NULL,
+                question_id TEXT    NOT NULL,
+                PRIMARY KEY (user_id, question_id)
+            );
+            CREATE TABLE IF NOT EXISTS prefix_known (
+                user_id    INTEGER NOT NULL,
+                prefix_id  TEXT    NOT NULL,
+                PRIMARY KEY (user_id, prefix_id)
+            );
+            """)
 
 # ── Auth helpers ──────────────────────────────────────────────────────────────
 
 def current_user_id():
     return session.get("user_id")
-
-def require_auth():
-    uid = current_user_id()
-    if not uid:
-        return None, jsonify({"error": "not logged in"}), 401
-    return uid, None, None
 
 # ── Auth routes ───────────────────────────────────────────────────────────────
 
@@ -72,21 +130,37 @@ def register():
         return jsonify({"error": "username and password required"}), 400
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
     try:
-        with get_db() as db:
-            cur = db.execute("INSERT INTO users (username, pw_hash) VALUES (?,?)", (username, pw_hash))
-            session["user_id"] = cur.lastrowid
-            session["username"] = username
+        conn = get_db()
+        cur = conn.cursor()
+        if USE_PG:
+            cur.execute(
+                "INSERT INTO users (username, pw_hash) VALUES (%s, %s) RETURNING id",
+                (username, pw_hash)
+            )
+            uid = cur.fetchone()[0]
+            conn.commit()
+        else:
+            cur.execute("INSERT INTO users (username, pw_hash) VALUES (?,?)", (username, pw_hash))
+            uid = cur.lastrowid
+            conn.commit()
+        conn.close()
+        session["user_id"] = uid
+        session["username"] = username
         return jsonify({"ok": True, "username": username})
-    except sqlite3.IntegrityError:
-        return jsonify({"error": "username taken"}), 409
+    except Exception as e:
+        if "unique" in str(e).lower() or "UNIQUE" in str(e):
+            return jsonify({"error": "username taken"}), 409
+        raise
 
 @app.post("/api/login")
 def login():
     data = request.json or {}
     username = (data.get("username") or "").strip()
     password = data.get("password") or ""
-    with get_db() as db:
-        row = db.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
+    conn = get_db()
+    cur = conn.cursor()
+    row = db_fetchone(cur, "SELECT * FROM users WHERE username=?", (username,))
+    conn.close()
     if not row or not bcrypt.checkpw(password.encode(), row["pw_hash"].encode()):
         return jsonify({"error": "wrong username or password"}), 401
     session["user_id"]  = row["id"]
@@ -112,8 +186,10 @@ def get_seen():
     uid = current_user_id()
     if not uid:
         return jsonify({"error": "not logged in"}), 401
-    with get_db() as db:
-        rows = db.execute("SELECT question_id FROM seen WHERE user_id=?", (uid,)).fetchall()
+    conn = get_db()
+    cur = conn.cursor()
+    rows = db_fetchall(cur, "SELECT question_id FROM seen WHERE user_id=?", (uid,))
+    conn.close()
     return jsonify({"seen": [r["question_id"] for r in rows]})
 
 @app.post("/api/seen")
@@ -122,11 +198,23 @@ def post_seen():
     if not uid:
         return jsonify({"error": "not logged in"}), 401
     ids = request.json.get("ids", [])
-    with get_db() as db:
-        db.executemany(
+    if not ids:
+        return jsonify({"ok": True})
+    conn = get_db()
+    cur = conn.cursor()
+    if USE_PG:
+        psycopg2.extras.execute_values(
+            cur,
+            "INSERT INTO seen (user_id, question_id) VALUES %s ON CONFLICT DO NOTHING",
+            [(uid, qid) for qid in ids]
+        )
+    else:
+        cur.executemany(
             "INSERT OR IGNORE INTO seen (user_id, question_id) VALUES (?,?)",
             [(uid, qid) for qid in ids]
         )
+    conn.commit()
+    conn.close()
     return jsonify({"ok": True})
 
 @app.post("/api/reset")
@@ -134,24 +222,27 @@ def reset_seen():
     uid = current_user_id()
     if not uid:
         return jsonify({"error": "not logged in"}), 401
-    qtype = request.json.get("type")  # optional: reset only one type
-    with get_db() as db:
-        if qtype:
-            # We don't store type in seen table, so we'd need to cross-ref with questions
-            # For simplicity just reset all
-            pass
-        db.execute("DELETE FROM seen WHERE user_id=?", (uid,))
+    conn = get_db()
+    cur = conn.cursor()
+    if USE_PG:
+        cur.execute("DELETE FROM seen WHERE user_id=%s", (uid,))
+    else:
+        cur.execute("DELETE FROM seen WHERE user_id=?", (uid,))
+    conn.commit()
+    conn.close()
     return jsonify({"ok": True})
 
-# ── Prefix/suffix known routes ───────────────────────────────────────────────
+# ── Prefix/suffix known routes ────────────────────────────────────────────────
 
 @app.get("/api/prefix-known")
 def get_prefix_known():
     uid = current_user_id()
     if not uid:
         return jsonify({"error": "not logged in"}), 401
-    with get_db() as db:
-        rows = db.execute("SELECT prefix_id FROM prefix_known WHERE user_id=?", (uid,)).fetchall()
+    conn = get_db()
+    cur = conn.cursor()
+    rows = db_fetchall(cur, "SELECT prefix_id FROM prefix_known WHERE user_id=?", (uid,))
+    conn.close()
     return jsonify({"known": [r["prefix_id"] for r in rows]})
 
 @app.post("/api/prefix-known")
@@ -164,11 +255,30 @@ def post_prefix_known():
     know = data.get("known", False)
     if not pid:
         return jsonify({"error": "missing id"}), 400
-    with get_db() as db:
-        if know:
-            db.execute("INSERT OR IGNORE INTO prefix_known (user_id, prefix_id) VALUES (?,?)", (uid, pid))
+    conn = get_db()
+    cur = conn.cursor()
+    if know:
+        if USE_PG:
+            cur.execute(
+                "INSERT INTO prefix_known (user_id, prefix_id) VALUES (%s,%s) ON CONFLICT DO NOTHING",
+                (uid, pid)
+            )
         else:
-            db.execute("DELETE FROM prefix_known WHERE user_id=? AND prefix_id=?", (uid, pid))
+            cur.execute(
+                "INSERT OR IGNORE INTO prefix_known (user_id, prefix_id) VALUES (?,?)",
+                (uid, pid)
+            )
+    else:
+        if USE_PG:
+            cur.execute(
+                "DELETE FROM prefix_known WHERE user_id=%s AND prefix_id=%s", (uid, pid)
+            )
+        else:
+            cur.execute(
+                "DELETE FROM prefix_known WHERE user_id=? AND prefix_id=?", (uid, pid)
+            )
+    conn.commit()
+    conn.close()
     return jsonify({"ok": True})
 
 # ── Static files ──────────────────────────────────────────────────────────────
@@ -195,5 +305,7 @@ def texts(filename):
 
 if __name__ == "__main__":
     init_db()
-    print("Högskoleprovet pro running at http://localhost:3456")
+    print("Högskoleprovet Pro running at http://localhost:3456")
     app.run(port=3456, debug=False)
+
+init_db()  # also run when started by gunicorn
